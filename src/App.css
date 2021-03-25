@@ -1,9 +1,24 @@
 .App {
   text-align: center;
 }
+.btn-services {
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+}
+
+.btn-services:hover {
+  color: #28a745;
+  background-color: white;
+  cursor: pointer;
+}
 
 .text-lg {
   font-size: 18px;
+}
+
+.pt-lg {
+  padding-top: 100px;
 }
 @keyframes App-logo-spin {
   from {

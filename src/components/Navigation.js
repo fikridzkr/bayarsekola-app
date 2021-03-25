@@ -2,14 +2,9 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 const Navigation = () => {
   return (
-    <div>
-      <Navbar
-        bg="white"
-        expand="lg"
-        variant="light"
-        className="shadow-sm fixed-top"
-      >
-        <Container>
+    <>
+      <Navbar bg="white" expand="lg" variant="light" className="shadow">
+        <Container fluid>
           <Navbar.Brand href="#home">BayarSekola</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -33,7 +28,7 @@ const Navigation = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </div>
+    </>
   );
 };
 
