@@ -6,7 +6,7 @@ const Header = () => {
     <div className="bg-success text-white pt-lg ">
       <Container>
         <Row>
-          <Col md={6} sm={12}>
+          <Col md={6} sm={12} className="my-auto">
             <h2 className="my-4">
               Bayar Sekolah Gak Pake Ribet ?<br></br>BayarSekola Aja !
             </h2>
@@ -14,7 +14,7 @@ const Header = () => {
               <span className="btn-services btn-lg mx-auto">Our Services</span>
             </ScrollLink>
           </Col>
-          <Col md={6} sm={12}>
+          <Col md={6} sm={12} className="my-auto">
             <img
               src="/images/wallet.svg"
               className="mt-5"

@@ -1,59 +1,109 @@
 import React from "react";
-import { Container, Card, Form, Button } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import Navs from "../components/Navs";
+import { Formik, Form } from "formik";
+import Footer from "../components/Footer";
+import { TextField } from "../components/TextField";
+import * as Yup from "yup";
 const Register = () => {
+  // validation here
+  const validate = Yup.object({
+    fullName: Yup.string()
+      .max(30, "Must be 30 characters or less")
+      .required("Required"),
+    username: Yup.string()
+      .max(10, "Must be 10 characters or less")
+      .required("Username is required"),
+    email: Yup.string().email("Email is Invalid").required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Password must match")
+      .required("Confirm password is required"),
+  });
   return (
-    <div>
-      <Navs />
-      <Container>
-        <section class="d-flex justify-content-center mt-5">
-          <section className="mt-4 mr-5">
-            <img src="/images/payment.svg" alt="bayarsekola" width="350vw" />
-          </section>
-          <section className="">
-            <Card className="shadow-sm">
-              <Card.Body>
-                <h2 className="text-center">Bayar Sekola</h2>
-                <p className="text-secondary">
-                  sign up now to start paying school tuition online
-                </p>
-                <Form>
-                  <Form.Group controlId="formBasicFullname">
-                    <Form.Label>Full Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Full Name" />
-                  </Form.Group>
-
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label className="text-start">Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                      We'll never share your email with anyone else.
-                    </Form.Text>
-                  </Form.Group>
-
-                  <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Username" />
-                  </Form.Group>
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                  </Form.Group>
-                  <Button variant="success" type="submit">
-                    Log in
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
-            <Card className="text-center mt-4 shadow-sm">
-              <Card.Body>
-                Have an account ? <a href="/login">Sign in</a>
-              </Card.Body>
-            </Card>
-          </section>
-        </section>
-      </Container>
-    </div>
+    <Formik
+      initialValues={{
+        fullName: "",
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      }}
+      validationSchema={validate}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+    >
+      {(formik) => (
+        <div>
+          <Navs />
+          <Container>
+            <section class="d-flex justify-content-center mt-5">
+              <section className="mt-4 mr-5">
+                <img
+                  src="/images/payment.svg"
+                  alt="bayarsekola"
+                  width="350vw"
+                />
+              </section>
+              <section className="">
+                <Card className="shadow-sm">
+                  <Card.Body>
+                    <h2 className="text-center">Bayar Sekola</h2>
+                    <p className="text-secondary">
+                      sign up now to start paying school tuition online
+                    </p>
+                    <Form>
+                      <TextField
+                        label="Full Name"
+                        type="text"
+                        placeholder="Enter Full Name"
+                        name="fullName"
+                      />
+                      <TextField
+                        label="Username"
+                        type="text"
+                        placeholder="Enter Username"
+                        name="username"
+                      />
+                      <TextField
+                        label="Email"
+                        type="email"
+                        placeholder="Enter Email"
+                        name="email"
+                      />
+                      <TextField
+                        label="Password"
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                      />
+                      <TextField
+                        label="Confirm Password"
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                      />
+                      <Button variant="success" type="submit" className="mt-2">
+                        Sign up
+                      </Button>
+                    </Form>
+                  </Card.Body>
+                </Card>
+                <Card className="text-center mt-4 shadow-sm">
+                  <Card.Body>
+                    Have an account ? <a href="/login">Sign in</a>
+                  </Card.Body>
+                </Card>
+              </section>
+            </section>
+          </Container>
+          <Footer />
+        </div>
+      )}
+    </Formik>
   );
 };
 
