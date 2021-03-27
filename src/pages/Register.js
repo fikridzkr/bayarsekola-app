@@ -5,6 +5,8 @@ import { Formik, Form } from "formik";
 import Footer from "../components/Footer";
 import { TextField } from "../components/TextField";
 import * as Yup from "yup";
+import Axios from "axios";
+
 const Register = () => {
   // validation here
   const validate = Yup.object({
@@ -30,10 +32,23 @@ const Register = () => {
         email: "",
         password: "",
         confirmPassword: "",
+        level: "students",
       }}
       validationSchema={validate}
       onSubmit={(values) => {
-        console.log(values);
+        Axios.post("http://localhost:3001/register", {
+          fullName: values.fullName,
+          username: values.username,
+          email: values.email,
+          password: values.password,
+          level: values.level,
+        })
+          .then((res) => {
+            console.log("data berhasil di input", res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }}
     >
       {(formik) => (
