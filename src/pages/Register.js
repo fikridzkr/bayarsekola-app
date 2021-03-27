@@ -14,9 +14,11 @@ const Register = () => {
   // validation here
   const validate = Yup.object({
     fullName: Yup.string()
+      .min(5, "Full Name must be at least 5 characters")
       .max(30, "Must be 30 characters or less")
       .required("Required"),
     username: Yup.string()
+      .min(5, "Full Name must be at least 5 characters")
       .max(10, "Must be 10 characters or less")
       .required("Username is required"),
     email: Yup.string().email("Email is Invalid").required("Email is required"),
@@ -51,7 +53,7 @@ const Register = () => {
       }}
       validationSchema={validate}
       onSubmit={(values) => {
-        Axios.post("http://localhot:3001/register", {
+        Axios.post("http://localhost:3001/register", {
           fullName: values.fullName,
           username: values.username,
           email: values.email,
