@@ -6,8 +6,11 @@ import Footer from "../components/Footer";
 import { TextField } from "../components/TextField";
 import * as Yup from "yup";
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 
 const Register = () => {
+  let history = useHistory();
   // validation here
   const validate = Yup.object({
     fullName: Yup.string()
@@ -24,6 +27,18 @@ const Register = () => {
       .oneOf([Yup.ref("password"), null], "Password must match")
       .required("Confirm password is required"),
   });
+
+  // redirect pages
+  function handleClick() {
+    swal({
+      title: "Registration is successful",
+      text: "You will be directed to the login page!",
+      icon: "success",
+      button: "Okay",
+    }).then(() => {
+      history.push("/login");
+    });
+  }
   return (
     <Formik
       initialValues={{
@@ -36,7 +51,7 @@ const Register = () => {
       }}
       validationSchema={validate}
       onSubmit={(values) => {
-        Axios.post("http://localhost:3001/register", {
+        Axios.post("http://localhot:3001/register", {
           fullName: values.fullName,
           username: values.username,
           email: values.email,
@@ -44,7 +59,7 @@ const Register = () => {
           level: values.level,
         })
           .then((res) => {
-            console.log("data berhasil di input", res);
+            console.log(res);
           })
           .catch((err) => {
             console.log(err);
@@ -101,7 +116,12 @@ const Register = () => {
                         placeholder="Confirm Password"
                         name="confirmPassword"
                       />
-                      <Button variant="success" type="submit" className="mt-2">
+                      <Button
+                        variant="success"
+                        type="submit"
+                        className="mt-2"
+                        onClick={handleClick}
+                      >
                         Sign up
                       </Button>
                     </Form>
