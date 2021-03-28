@@ -1,11 +1,15 @@
-import React from "react";
-import { Container, Button, Card } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Button, Card, Alert } from "react-bootstrap";
 import Footer from "../components/Footer";
 import Navs from "../components/Navs";
 import { Formik, Form } from "formik";
 import { TextField } from "../components/TextField";
 import * as Yup from "yup";
+import Axios from "axios";
+
 const Login = () => {
+  const [loginStatus, setLoginStatus] = useState("");
+  Axios.defaults.withCredentials = true;
   // validation here
   const validate = Yup.object({
     username: Yup.string()
@@ -15,18 +19,37 @@ const Login = () => {
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
   });
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").then((response) => {
+      if (response.data.loggedIn === true) {
+        setLoginStatus(response.data.user[0].username);
+      }
+      console.log(response);
+    });
+  }, []);
   return (
     <Formik
       initialValues={{
-        fullName: "",
         username: "",
-        email: "",
         password: "",
-        confirmPassword: "",
       }}
       validationSchema={validate}
       onSubmit={(values) => {
-        console.log(values);
+        Axios.post("http://localhost:3001/login", {
+          username: values.username,
+          password: values.password,
+        })
+          .then((response) => {
+            if (response.data.message) {
+              setLoginStatus(response.data.message);
+            } else {
+              setLoginStatus(response.data[0].username);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }}
     >
       {(formik) => (
@@ -45,9 +68,12 @@ const Login = () => {
                 <Card className="shadow-sm">
                   <Card.Body>
                     <h2 className="text-center">Bayar Sekola</h2>
-                    <p className="text-secondary">
+                    <p className="text-secondary text-center">
                       sign in to start paying school tuition online
                     </p>
+                    <Alert variant="danger" className="font-small">
+                      {loginStatus}
+                    </Alert>
                     <Form>
                       <TextField
                         label="Username"
