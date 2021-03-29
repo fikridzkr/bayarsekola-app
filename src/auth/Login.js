@@ -6,8 +6,10 @@ import { Formik, Form } from "formik";
 import { TextField } from "../components/TextField";
 import * as Yup from "yup";
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+  let history = useHistory();
   const [loginStatus, setLoginStatus] = useState("");
   Axios.defaults.withCredentials = true;
   // validation here
@@ -28,6 +30,10 @@ const Login = () => {
       console.log(response);
     });
   }, []);
+
+  function handleLogin() {
+    history.push("/dashboard");
+  }
   return (
     <Formik
       initialValues={{
@@ -45,6 +51,7 @@ const Login = () => {
               setLoginStatus(response.data.message);
             } else {
               setLoginStatus(response.data[0].username);
+              handleLogin();
             }
           })
           .catch((err) => {
