@@ -27,8 +27,8 @@ const Dashboard = () => {
   }, []);
   return (
     <>
-      {role === "admin" && <Admin user={username} />}{" "}
-      {role === "operators" && <Operators />}
+      {role === "admin" && <Admin user={username} />}
+      {role === "operators" && <Operators user={username} />}
       {role === "students" && <Students />}
     </>
   );
