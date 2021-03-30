@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { Button, Table, Badge } from "react-bootstrap";
+import { Table, Badge } from "react-bootstrap";
 
 const DataPayment = () => {
   return (
