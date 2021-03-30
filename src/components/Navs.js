@@ -7,11 +7,7 @@ const Navs = () => {
       <Navbar bg="white" expand="lg" variant="light" className="shadow">
         <Container fluid>
           <Navbar.Brand>
-            <img
-              src="/images/bayarsekola.jpg"
-              alt="bayarsekola"
-              width="150px"
-            />
+            <img src="/images/logo.svg" alt="bayarsekola" width="150vw" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

@@ -15,7 +15,12 @@
 }
 
 .pt-lg {
-  padding-top: 100px;
+  padding-top: 50px;
+}
+
+
+.pr-lg {
+  padding-right: 50px;
 }
 
 .error {

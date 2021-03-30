@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Card, Alert } from "react-bootstrap";
+import { Container, Button, Card, Alert, Row, Col } from "react-bootstrap";
 import Footer from "../components/Footer";
 import Navs from "../components/Navs";
 import { Formik, Form } from "formik";
@@ -63,15 +63,11 @@ const Login = () => {
         <div>
           <Navs />
           <Container>
-            <section class="d-flex justify-content-center mt-5">
-              <section className="mt-4 mr-5">
-                <img
-                  src="/images/payment.svg"
-                  alt="bayarsekola"
-                  width="350vw"
-                />
-              </section>
-              <section className="">
+            <Row className="mt-5">
+              <Col className="d-none d-sm-block pt-5">
+                <img src="/images/logo.svg" alt="bayarsekola" width="400vw" />
+              </Col>
+              <Col>
                 <Card className="shadow-sm">
                   <Card.Body>
                     <h2 className="text-center">Bayar Sekola</h2>
@@ -105,8 +101,8 @@ const Login = () => {
                     Don't Have an account ? <a href="/register">Sign Up</a>
                   </Card.Body>
                 </Card>
-              </section>
-            </section>
+              </Col>
+            </Row>
           </Container>
           <Footer />
         </div>

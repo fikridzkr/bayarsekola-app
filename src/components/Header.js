@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link as ScrollLink } from "react-scroll";
 const Header = () => {
   return (
-    <div className="bg-success text-white pt-lg ">
+    <div className="bg-success text-white pt-lg">
       <Container>
         <Row>
           <Col md={6} sm={12} className="my-auto">
@@ -15,12 +15,7 @@ const Header = () => {
             </ScrollLink>
           </Col>
           <Col md={6} sm={12} className="my-auto">
-            <img
-              src="/images/wallet.svg"
-              className="mt-5"
-              alt="wallet"
-              width="350vw"
-            />
+            <img src="/images/wallet.svg" className="mt-5 pb-4" width="300px" />
           </Col>
         </Row>
       </Container>

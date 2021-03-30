@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import Navs from "../components/Navs";
 import { Formik, Form } from "formik";
 import Footer from "../components/Footer";
@@ -72,19 +72,15 @@ const Register = () => {
         <div>
           <Navs />
           <Container>
-            <section class="d-flex justify-content-center mt-5">
-              <section className="mt-4 mr-5">
-                <img
-                  src="/images/payment.svg"
-                  alt="bayarsekola"
-                  width="350vw"
-                />
-              </section>
-              <section className="">
+            <Row className="mt-5">
+              <Col className="d-none d-sm-block pt-5">
+                <img src="/images/logo.svg" alt="bayarsekola" width="450vw" />
+              </Col>
+              <Col>
                 <Card className="shadow-sm">
                   <Card.Body>
                     <h2 className="text-center">Bayar Sekola</h2>
-                    <p className="text-secondary">
+                    <p className="text-secondary text-center">
                       sign up now to start paying school tuition online
                     </p>
                     <Form>
@@ -134,7 +130,11 @@ const Register = () => {
                     Have an account ? <a href="/login">Sign in</a>
                   </Card.Body>
                 </Card>
-              </section>
+              </Col>
+            </Row>
+            <section class="d-flex justify-content-center mt-5">
+              <section className="mt-4 mr-5"></section>
+              <section className=""></section>
             </section>
           </Container>
           <Footer />
