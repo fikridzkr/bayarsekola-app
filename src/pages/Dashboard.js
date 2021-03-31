@@ -29,7 +29,7 @@ const Dashboard = () => {
     <>
       {role === "admin" && <Admin user={username} />}
       {role === "operators" && <Operators user={username} />}
-      {role === "students" && <Students />}
+      {role === "students" && <Students user={username} />}
     </>
   );
 };
