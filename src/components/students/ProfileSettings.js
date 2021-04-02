@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Form, Button, Col, Row } from "react-bootstrap";
+import { Container, Form, Button, Col, Row, Card } from "react-bootstrap";
 
 const ProfileSettings = () => {
   return (
@@ -7,9 +7,30 @@ const ProfileSettings = () => {
       <Container className="mt-3">
         <h1>Profile Settings</h1>
         <hr />
-        <h4 className="mb-3">Change Password</h4>
-        <Row>
-          <Col md={6}>
+        <Card style={{ width: "50%" }} className="mb-3">
+          <Card.Body>
+            <h3>Update Profile</h3>
+            <hr />
+            <Row>
+              <Col md={3}>
+                <img src="/images/icon.png" alt="profile" width="90px" />
+              </Col>
+              <Col md={9}>
+                <Form>
+                  <Form.Group>
+                    <Form.File label="Upload profile baru anda" />
+                  </Form.Group>
+                </Form>
+              </Col>
+            </Row>
+
+            <Button variant="outline-success"> Bayar </Button>
+          </Card.Body>
+        </Card>
+        <Card style={{ width: "50%" }}>
+          <Card.Body>
+            <h3>Change Password</h3>
+            <hr />
             <Form>
               <Form.Group>
                 <Form.Control
@@ -24,8 +45,8 @@ const ProfileSettings = () => {
                 Change Password
               </Button>
             </Form>
-          </Col>
-        </Row>
+          </Card.Body>
+        </Card>
       </Container>
     </>
   );

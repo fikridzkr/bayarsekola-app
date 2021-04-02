@@ -4,13 +4,16 @@ import Admin from "../admin";
 import Operators from "../operators";
 import Students from "../students";
 import { useHistory } from "react-router-dom";
+import RegisterStudent from "../auth/RegisterStudent";
+import Register from "../auth/RegisterStudent";
 
 const Dashboard = () => {
   let history = useHistory();
   const [role, setRole] = useState();
   const [checkLogin, setCheckLogin] = useState();
   const [username, setUsername] = useState();
-
+  const [user_id, setUser_id] = useState();
+  const [activeUser, setActiveUser] = useState();
   Axios.defaults.withCredentials = true;
 
   useEffect(() => {
@@ -19,17 +22,22 @@ const Dashboard = () => {
         setRole(response.data.user[0].level);
         setCheckLogin(response.data.loggedIn);
         setUsername(response.data.user[0].username);
+        setUser_id(response.data.user[0].id);
+        setActiveUser(response.data.user[0].is_active);
       } else {
         history.push("/");
       }
       console.log(response);
     });
   }, []);
+
   return (
     <>
       {role === "admin" && <Admin user={username} />}
       {role === "operators" && <Operators user={username} />}
-      {role === "students" && <Students user={username} />}
+      {role === "students" && (
+        <Students user={username} activeUser={activeUser} user_id={user_id} />
+      )}
     </>
   );
 };

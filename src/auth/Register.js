@@ -13,12 +13,8 @@ const Register = () => {
   let history = useHistory();
   // validation here
   const validate = Yup.object({
-    fullName: Yup.string()
-      .min(5, "Full Name must be at least 5 characters")
-      .max(30, "Must be 30 characters or less")
-      .required("Required"),
     username: Yup.string()
-      .min(5, "Full Name must be at least 5 characters")
+      .min(5, "Username must be at least 5 characters")
       .max(10, "Must be 10 characters or less")
       .required("Username is required"),
     email: Yup.string().email("Email is Invalid").required("Email is required"),
@@ -44,21 +40,21 @@ const Register = () => {
   return (
     <Formik
       initialValues={{
-        fullName: "",
         username: "",
         email: "",
         password: "",
         confirmPassword: "",
         level: "students",
+        is_active: "no",
       }}
       validationSchema={validate}
       onSubmit={(values) => {
         Axios.post("http://localhost:3001/register", {
-          fullName: values.fullName,
           username: values.username,
           email: values.email,
           password: values.password,
           level: values.level,
+          is_active: values.is_active,
         })
           .then((res) => {
             console.log(res);
@@ -84,12 +80,6 @@ const Register = () => {
                       sign up now to start paying school tuition online
                     </p>
                     <Form>
-                      <TextField
-                        label="Full Name"
-                        type="text"
-                        placeholder="Enter Full Name"
-                        name="fullName"
-                      />
                       <TextField
                         label="Username"
                         type="text"
@@ -132,10 +122,6 @@ const Register = () => {
                 </Card>
               </Col>
             </Row>
-            <section class="d-flex justify-content-center mt-5">
-              <section className="mt-4 mr-5"></section>
-              <section className=""></section>
-            </section>
           </Container>
           <Footer />
         </div>

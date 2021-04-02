@@ -1,31 +1,23 @@
-import React from "react";
-import { Image, Col, Container, Row, ListGroup } from "react-bootstrap";
-const Home = () => {
+import Axios from "axios";
+import React, { useState, useEffect } from "react";
+import RegisterStudent from "../../auth/RegisterStudent";
+import DataUser from "./DataUser";
+
+const Home = ({ user, user_id }) => {
+  const [activeUser, setActiveUser] = useState();
+  console.log(activeUser);
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login")
+      .then((res) => {
+        console.log(res);
+        setActiveUser(res.data.user[0].is_active);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <>
-      <Container>
-        <h1 className="text-center mt-4">Data Pribadi</h1>
-        <hr />
-        <Row className="mt-4">
-          <Col md={4}>
-            <Image
-              src="images/icon.png"
-              roundedCircle
-              width="350px"
-              className="mx-auto"
-            />
-          </Col>
-          <Col md={8}>
-            <ListGroup>
-              <ListGroup.Item>181910191</ListGroup.Item>
-              <ListGroup.Item>M Fikri Dzakir</ListGroup.Item>
-              <ListGroup.Item>12 RPL 1</ListGroup.Item>
-              <ListGroup.Item>Rekayasa Perangkat Lunak</ListGroup.Item>
-              <ListGroup.Item>Laki-Laki</ListGroup.Item>
-            </ListGroup>
-          </Col>
-        </Row>
-      </Container>
+      {activeUser === "yes" && <DataUser />}
+      {activeUser === "no" && <RegisterStudent user={user} user_id={user_id} />}
     </>
   );
 };
