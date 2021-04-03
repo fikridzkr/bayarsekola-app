@@ -5,7 +5,6 @@ import DataUser from "./DataUser";
 
 const Home = ({ user, user_id }) => {
   const [activeUser, setActiveUser] = useState();
-  console.log(activeUser);
   useEffect(() => {
     Axios.get("http://localhost:3001/login")
       .then((res) => {
@@ -16,7 +15,7 @@ const Home = ({ user, user_id }) => {
   }, []);
   return (
     <>
-      {activeUser === "yes" && <DataUser />}
+      {activeUser === "yes" && <DataUser user_id={user_id} />}
       {activeUser === "no" && <RegisterStudent user={user} user_id={user_id} />}
     </>
   );

@@ -1,6 +1,20 @@
-import React from "react";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Image, Col, Container, Row, ListGroup } from "react-bootstrap";
-const DataUser = () => {
+const DataUser = ({ user_id }) => {
+  const [dataUser, setDataUser] = useState();
+  useEffect(() => {
+    Axios.post("http://localhost:3001/student", {
+      user_id: user_id,
+    })
+      .then((res) => {
+        setDataUser(res.data.dataUser[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  console.log(dataUser);
   return (
     <>
       <Container>
@@ -9,19 +23,19 @@ const DataUser = () => {
         <Row className="mt-4">
           <Col md={4}>
             <Image
-              src="images/icon.png"
-              roundedCircle
-              width="350px"
+              src={`/cache/${dataUser.foto}`} //masi ada bug di path direktori
+              rounded
+              width="300px"
               className="mx-auto"
             />
           </Col>
           <Col md={8}>
             <ListGroup>
-              <ListGroup.Item>181910191</ListGroup.Item>
-              <ListGroup.Item>M Fikri Dzakir</ListGroup.Item>
-              <ListGroup.Item>12 RPL 1</ListGroup.Item>
-              <ListGroup.Item>Rekayasa Perangkat Lunak</ListGroup.Item>
-              <ListGroup.Item>Laki-Laki</ListGroup.Item>
+              <ListGroup.Item>{dataUser.nis}</ListGroup.Item>
+              <ListGroup.Item>{dataUser.nama}</ListGroup.Item>
+              <ListGroup.Item>{dataUser.kelas}</ListGroup.Item>
+              <ListGroup.Item>{dataUser.jurusan}</ListGroup.Item>
+              <ListGroup.Item>{dataUser.jenis_kelamin}</ListGroup.Item>
             </ListGroup>
           </Col>
         </Row>

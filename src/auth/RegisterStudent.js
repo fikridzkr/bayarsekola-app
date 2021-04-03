@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import { TextField } from "../components/TextField";
 import * as Yup from "yup";
 import Axios from "axios";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
 const RegisterStudent = ({ user, user_id }) => {
