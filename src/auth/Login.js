@@ -74,9 +74,11 @@ const Login = () => {
                     <p className="text-secondary text-center">
                       sign in to start paying school tuition online
                     </p>
-                    <Alert variant="danger" className="font-small">
-                      {loginStatus}
-                    </Alert>
+                    {loginStatus && (
+                      <Alert variant="danger" className="font-small">
+                        {loginStatus}
+                      </Alert>
+                    )}
                     <Form>
                       <TextField
                         label="Username"
