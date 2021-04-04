@@ -34,8 +34,8 @@ const RegisterStudent = ({ user, user_id }) => {
   useEffect(() => {
     Axios.get("http://localhost:3001/kelas")
       .then((res) => {
-        const kelas = res.data.kelas;
-        setKelas(kelas);
+        const dataKelas = res.data.kelas;
+        setKelas(dataKelas);
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +49,7 @@ const RegisterStudent = ({ user, user_id }) => {
         foto: null,
         nis: "",
         nama: "",
-        kelas: "",
+        kelas: null,
         jurusan: "Rekayasa Perangkat Lunak",
         jenis_kelamin: "Laki - Laki",
       }}
@@ -106,7 +106,7 @@ const RegisterStudent = ({ user, user_id }) => {
                     name="nama"
                   />
                   <div className="mb-3">
-                    <label for="kelas">Choose a Jurusan</label>
+                    <label for="kelas">Choose a Kelas</label>
                     <Field as="select" name="kelas" className="form-control">
                       {kelas.map((values, index) => {
                         return (
