@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table, Badge } from "react-bootstrap";
-
+import Axios from "axios";
 const DataAdmin = () => {
+  const [dataAdmin, setDataAdmin] = useState([]);
+  useEffect(() => {
+    Axios.get("http://localhost:3001/admin/admindata")
+      .then((res) => {
+        setDataAdmin(res.data.admin);
+      })
+      .catch((err) => console.log(err));
+  });
   return (
     <div className="m-5">
       <h2>Data Admin BayarSekola</h2>
@@ -13,33 +21,31 @@ const DataAdmin = () => {
         <thead className="bg-success text-white">
           <tr>
             <th>No</th>
-            <th>Nip</th>
-            <th>Nama Admin</th>
-            <th>Role</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <Badge variant="warning">Edit</Badge>{" "}
-              <Badge variant="danger">Delete</Badge>{" "}
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>@twitter</td>
-          </tr>
+          {dataAdmin.map((values) => {
+            return (
+              <tr>
+                <td>1</td>
+                <td>{values.username}</td>
+                <td>{values.email}</td>
+                <td>
+                  <Badge variant="success">{values.is_active}</Badge>
+                </td>
+                <td>
+                  {" "}
+                  <Button variant="danger" size="sm">
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </div>
