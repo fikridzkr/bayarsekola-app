@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Table, Modal } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import ShowModal from "../ShowModal";
 const DataStudents = () => {
   const [dataSiswa, setDataSiswa] = useState([]);
@@ -13,11 +13,6 @@ const DataStudents = () => {
         console.log(err);
       });
   }, []);
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   console.log(dataSiswa);
   return (
     <div className="m-5">

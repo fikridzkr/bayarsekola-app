@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-const ShowModal = ({}) => {
+const ShowModal = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
