@@ -47,9 +47,7 @@ const Navigation = () => {
               </NavDropdown.Item>
             </Link>
             <NavDropdown.Divider />
-            <Link to="/">
-              <NavDropdown.Item href="/">Logout</NavDropdown.Item>
-            </Link>
+            <NavDropdown.Item href="/">Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
