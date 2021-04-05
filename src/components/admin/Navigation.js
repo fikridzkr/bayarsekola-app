@@ -20,6 +20,11 @@ const Navigation = () => {
                 Data Admin
               </NavDropdown.Item>
             </Link>
+            <Link to="/dashboard/operators">
+              <NavDropdown.Item href="/dashboard/operators">
+                Data Operator
+              </NavDropdown.Item>
+            </Link>
           </NavDropdown>
           <Link to="/dashboard/payment">
             <Nav.Link href="/dashboard/payment">Data Pembayaran</Nav.Link>

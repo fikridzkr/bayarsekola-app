@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DataStudents from "../components/admin/DataStudents";
 import DataAdmin from "../components/admin/DataAdmin";
 import DataPayment from "../components/admin/DataPayment";
+import DataOperators from "../components/admin/DataOperators";
 import ProfileSettings from "../components/admin/ProfileSettings";
 import Home from "../components/admin/Home";
 function Admin({ user }) {
@@ -14,6 +15,7 @@ function Admin({ user }) {
         <Route path="/dashboard" exact render={() => <Home user={user} />} />
         <Route path="/dashboard/students" component={DataStudents} />
         <Route path="/dashboard/admin" component={DataAdmin} />
+        <Route path="/dashboard/operators" component={DataOperators} />
         <Route path="/dashboard/payment" component={DataPayment} />
         <Route path="/dashboard/profile" component={ProfileSettings} />
       </Switch>
