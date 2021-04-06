@@ -37,8 +37,8 @@ const DataUser = ({ user_id }) => {
             <Image
               src={`/cache/${foto}`} //masi ada bug di path direktori
               rounded
-              width="300px"
-              className="mx-auto"
+              width="200px"
+              className="mt-5"
             />
           </Col>
           <Col md={8}>
