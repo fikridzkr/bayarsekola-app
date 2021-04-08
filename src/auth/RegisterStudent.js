@@ -31,15 +31,20 @@ const RegisterStudent = ({ user, user_id }) => {
       history.push("/dashboard/bills");
     });
   }
-  useEffect(() => {
+  function getKelas() {
     Axios.get("http://localhost:3001/kelas")
       .then((res) => {
         const dataKelas = res.data.kelas;
         setKelas(dataKelas);
+        console.log(dataKelas);
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  useEffect(() => {
+    getKelas();
   }, []);
   return (
     <Formik
@@ -49,9 +54,12 @@ const RegisterStudent = ({ user, user_id }) => {
         foto: null,
         nis: "",
         nama: "",
-        kelas: null,
+        kelas: 1,
         jurusan: "Rekayasa Perangkat Lunak",
         jenis_kelamin: "Laki - Laki",
+
+        // spp siswa
+        jumlah: 300000,
       }}
       validationSchema={validate}
       onSubmit={(values) => {
@@ -64,6 +72,8 @@ const RegisterStudent = ({ user, user_id }) => {
         data.append("kelas", values.kelas);
         data.append("jurusan", values.jurusan);
         data.append("jenis_kelamin", values.jenis_kelamin);
+        data.append("jumlah", values.jumlah);
+
         Axios.post("http://localhost:3001/datastudent", data)
           .then((res) => {
             console.log(res);
