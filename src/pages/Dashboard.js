@@ -4,8 +4,6 @@ import Admin from "../admin";
 import Operators from "../operators";
 import Students from "../students";
 import { useHistory } from "react-router-dom";
-import RegisterStudent from "../auth/RegisterStudent";
-import Register from "../auth/RegisterStudent";
 
 const Dashboard = () => {
   let history = useHistory();
@@ -35,9 +33,7 @@ const Dashboard = () => {
     <>
       {role === "admin" && <Admin user={username} />}
       {role === "operators" && <Operators user={username} />}
-      {role === "students" && (
-        <Students user={username} activeUser={activeUser} user_id={user_id} />
-      )}
+      {role === "students" && <Students user={username} user_id={user_id} />}
     </>
   );
 };

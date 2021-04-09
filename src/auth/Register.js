@@ -27,14 +27,14 @@ const Register = () => {
   });
 
   // redirect pages
-  function handleClick() {
+  function handleSubmit() {
     swal({
       title: "Registration is successful",
       text: "You will be directed to the login page!",
       icon: "success",
       button: "Okay",
     }).then(() => {
-      history.push("/login");
+      history.push("/");
     });
   }
   return (
@@ -57,7 +57,12 @@ const Register = () => {
           is_active: values.is_active,
         })
           .then((res) => {
-            console.log(res);
+            if (res) {
+              handleSubmit();
+              console.log(res);
+            } else {
+              console.log(res);
+            }
           })
           .catch((err) => {
             console.log(err);
@@ -104,12 +109,7 @@ const Register = () => {
                         placeholder="Confirm Password"
                         name="confirmPassword"
                       />
-                      <Button
-                        variant="success"
-                        type="submit"
-                        className="mt-2"
-                        onClick={handleClick}
-                      >
+                      <Button variant="success" type="submit" className="mt-2">
                         Sign up
                       </Button>
                     </Form>

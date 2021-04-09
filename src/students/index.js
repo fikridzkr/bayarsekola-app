@@ -1,24 +1,43 @@
-import React from "react";
+import Axios from "axios";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "../components/students/Navigation";
 import Footer from "../components/Footer";
-import Home from "../components/students/Home";
+import RegisterStudent from "../auth/RegisterStudent";
+import DataUser from "../components/students/DataUser";
 import ProfileSettings from "../components/students/ProfileSettings";
 import Bills from "../components/students/Bills";
 import Payment from "../components/students/Payment";
-function Students({ user, activeUser, user_id }) {
+function Students({ user, user_id }) {
+  const [activeUser, setActiveUser] = useState();
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login")
+      .then((res) => {
+        console.log(res);
+        setActiveUser(res.data.user[0].is_active);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <Router>
-      <Navigation user={user} />
+      {activeUser === "yes" && <Navigation user={user} />}
       <Switch>
         <Route
           path="/dashboard"
           exact
           render={() => (
-            <Home activeUser={activeUser} user={user} user_id={user_id} />
+            <>
+              {activeUser === "yes" && <DataUser user_id={user_id} />}
+              {activeUser === "no" && (
+                <RegisterStudent user={user} user_id={user_id} />
+              )}
+            </>
           )}
         />
-        <Route path="/dashboard/bills" component={Bills} />
+        <Route
+          path="/dashboard/bills"
+          render={() => <Bills user_id={user_id} />}
+        />
         <Route path="/dashboard/payment" component={Payment} />
         <Route path="/dashboard/profile" component={ProfileSettings} />
       </Switch>

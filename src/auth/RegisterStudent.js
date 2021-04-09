@@ -95,14 +95,18 @@ const RegisterStudent = ({ user, user_id }) => {
                   please complete your data
                 </p>
                 <Form>
-                  <input
-                    label="Upload Your Picture"
-                    type="file"
-                    name="foto"
-                    onChange={(event) =>
-                      formik.setFieldValue("foto", event.target.files[0])
-                    }
-                  />
+                  <div className="mb-3">
+                    <label for="foto">Upload Foto Anda </label>
+                    <br />
+                    <input
+                      label="Upload Your Picture"
+                      type="file"
+                      name="foto"
+                      onChange={(event) =>
+                        formik.setFieldValue("foto", event.target.files[0])
+                      }
+                    />
+                  </div>
                   <TextField
                     label="Nis"
                     type="number"
