@@ -33,15 +33,16 @@ const DataUser = ({ user_id }) => {
         <h1 className="text-center mt-4">Data Pribadi</h1>
         <hr />
         <Row className="mt-4">
-          <Col md={4}>
+          <Col md={4} xs={12} sm={12}>
             <Image
-              src={`/cache/${foto}`} //masi ada bug di path direktori
-              rounded
-              width="200px"
-              className="mt-5"
+              src={`/cache/${foto}`}
+              roundedCircle
+              width="250px"
+              height="250px"
+              className="rounded mx-auto d-block mb-3"
             />
           </Col>
-          <Col md={8}>
+          <Col md={8} xs={12} sm={12}>
             <ListGroup>
               <ListGroup.Item>{nis}</ListGroup.Item>
               <ListGroup.Item>{nama}</ListGroup.Item>

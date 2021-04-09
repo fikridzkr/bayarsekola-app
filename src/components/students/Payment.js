@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import { Formik, Form, Field } from "formik";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
@@ -53,41 +53,50 @@ const Payment = () => {
       {(formik) => (
         <>
           <Container className="mt-5">
-            <Card style={{ width: "50%" }} className="mx-auto">
-              <Card.Body>
-                <h3>Bayar SPP</h3>
-                <hr />
-                <Form>
-                  <div className="mb-3">
-                    <label for="bulan">Choose a Month</label>
-                    <Field as="select" name="bulan" className="form-control">
-                      {bulan.map((values, index) => {
-                        return (
-                          <option value={values.id} key={index}>
-                            {values.bulan} {values.tahun}
-                          </option>
-                        );
-                      })}
-                    </Field>
-                  </div>
-                  <div>
-                    <label for="bukti">Upload Bukti Pembayaran</label>
-                    <input
-                      type="file"
-                      name="bukti"
-                      onChange={(event) =>
-                        formik.setFieldValue("foto", event.target.files[0])
-                      }
-                    />
-                  </div>
-                  <br />
-                  <Button variant="outline-success" className="mt-3">
-                    {" "}
-                    Bayar{" "}
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
+            <Row className="d-flex justify-content-center">
+              <Col md={6} sm={12}>
+                <Card className="mx-auto">
+                  <Card.Body>
+                    <h3>Bayar SPP</h3>
+                    <hr />
+                    <Form>
+                      <div className="mb-3">
+                        <label for="bulan">Choose a Month</label>
+                        <Field
+                          as="select"
+                          name="bulan"
+                          className="form-control"
+                        >
+                          {bulan.map((values, index) => {
+                            return (
+                              <option value={values.id} key={index}>
+                                {values.bulan} {values.tahun}
+                              </option>
+                            );
+                          })}
+                        </Field>
+                      </div>
+                      <div>
+                        <label for="bukti">Upload Bukti Pembayaran</label>
+                        <br />
+                        <input
+                          type="file"
+                          name="bukti"
+                          onChange={(event) =>
+                            formik.setFieldValue("foto", event.target.files[0])
+                          }
+                        />
+                      </div>
+                      <br />
+                      <Button variant="outline-success" className="mt-3">
+                        {" "}
+                        Bayar{" "}
+                      </Button>
+                    </Form>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
           </Container>
         </>
       )}
