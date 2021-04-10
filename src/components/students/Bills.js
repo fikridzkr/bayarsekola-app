@@ -27,6 +27,7 @@ const Bills = ({ user_id }) => {
               <th>Bulan</th>
               <th>Tanggal Bayar</th>
               <th>Jumlah</th>
+              <th>Bukti Pembayaran</th>
               <th>Keterangan</th>
               <th>Action</th>
             </tr>
@@ -39,6 +40,7 @@ const Bills = ({ user_id }) => {
                   <td>{values.bulan}</td>
                   <td>{values.tanggal_bayar ? values.tanggal_bayar : `-`}</td>
                   <td>{values.jumlah}</td>
+                  <td>{values.bukti_pembayaran}</td>
                   <td>
                     {values.keterangan === "Sudah Bayar" && (
                       <Badge variant="success">{values.keterangan}</Badge>

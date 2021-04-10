@@ -11,13 +11,15 @@ import Payment from "../components/students/Payment";
 function Students({ user, user_id }) {
   const [activeUser, setActiveUser] = useState();
   useEffect(() => {
-    Axios.get("http://localhost:3001/login")
+    Axios.post("http://localhost:3001/studentstatus", {
+      user: user,
+    })
       .then((res) => {
-        console.log(res);
-        setActiveUser(res.data.user[0].is_active);
+        console.log(res.data.response[0].is_active);
+        setActiveUser(res.data.response[0].is_active);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [user]);
   return (
     <Router>
       {activeUser === "yes" && <Navigation user={user} />}
@@ -39,7 +41,10 @@ function Students({ user, user_id }) {
           render={() => <Bills user_id={user_id} />}
         />
         <Route path="/dashboard/payment" component={Payment} />
-        <Route path="/dashboard/profile" component={ProfileSettings} />
+        <Route
+          path="/dashboard/profile"
+          render={() => <ProfileSettings user_id={user_id} />}
+        />
       </Switch>
       <Footer />
     </Router>

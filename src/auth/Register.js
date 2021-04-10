@@ -34,7 +34,7 @@ const Register = () => {
       icon: "success",
       button: "Okay",
     }).then(() => {
-      history.push("/");
+      history.push("/login");
     });
   }
   return (
@@ -109,7 +109,12 @@ const Register = () => {
                         placeholder="Confirm Password"
                         name="confirmPassword"
                       />
-                      <Button variant="success" type="submit" className="mt-2">
+                      <Button
+                        variant="success"
+                        type="submit"
+                        className="mt-2"
+                        onClick={() => handleSubmit()}
+                      >
                         Sign up
                       </Button>
                     </Form>
