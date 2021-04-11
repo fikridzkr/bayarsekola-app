@@ -1,21 +1,18 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container, Form, Button, Col, Row, Card } from "react-bootstrap";
+import { Container, Form, Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 
 const ProfileSettings = ({ user_id }) => {
   const idUser = user_id;
-  const [foto, setFoto] = useState();
   const [nis, setNis] = useState();
   const [nama, setNama] = useState();
+  const [kelas, setKelas] = useState();
+  const [jurusan, setJurusan] = useState();
+  const [jenisKelamin, setJenisKelamin] = useState();
 
-  const [newFoto, setNewFoto] = useState();
-  const [newNis, setNewNis] = useState();
-  const [newNama, setNewNama] = useState();
-  const [newKelas, setNewKelas] = useState();
-  const [newJurusan, setNewJurusan] = useState();
-  const [newJenisKelamin, setNewJenisKelamin] = useState();
-
+  console.log(idUser, nis, nama, kelas, jurusan, jenisKelamin);
   const [getKelas, setGetKelas] = useState([]);
   let history = useHistory();
 
@@ -24,10 +21,11 @@ const ProfileSettings = ({ user_id }) => {
       user_id: idUser,
     })
       .then((res) => {
-        setFoto(res.data.dataUser[0].foto);
         setNis(res.data.dataUser[0].nis);
         setNama(res.data.dataUser[0].nama);
-        console.log(res.data.dataUser[0]);
+        setKelas(res.data.dataUser[0].id_kelas);
+        setJurusan(res.data.dataUser[0].jurusan);
+        setJenisKelamin(res.data.dataUser[0].jenis_kelamin);
       })
       .catch((err) => {
         console.log(err);
@@ -48,21 +46,31 @@ const ProfileSettings = ({ user_id }) => {
   const updateProfile = () => {
     Axios.put("http://localhost:3001/student/update", {
       user_id: idUser,
-      foto: newFoto,
-      nis: newNis,
-      nama: newNama,
-      kelas: newKelas,
-      jurusan: newJurusan,
-      jenis_kelamin: newJenisKelamin,
+      nis: nis,
+      nama: nama,
+      kelas: kelas,
+      jurusan: jurusan,
+      jenis_kelamin: jenisKelamin,
     })
-      .then((res) => {
-        history.push("/dashboard");
-        console.log(res);
-      })
+      .then(handleSubmit())
       .catch((err) => {
         console.log(err);
       });
   };
+
+  // redirect pages
+  function handleSubmit() {
+    swal({
+      title: "Registration is successful",
+      text: "You will be directed to the login page!",
+      icon: "success",
+      button: "Okay",
+    }).then(() => {
+      history.push("/dashboard");
+    });
+  }
+
+  const changePassword = () => {};
   useEffect(() => {
     getDataStudent();
     getDataKelas();
@@ -77,25 +85,13 @@ const ProfileSettings = ({ user_id }) => {
             <h3>Update Profile</h3>
             <hr />
             <Form>
-              <Row>
-                <Col md={3}>
-                  <img src={`/cache/${foto}`} alt="profile" width="90px" />
-                </Col>
-                <Col md={9}>
-                  <Form.Group>
-                    <Form.File
-                      label="Upload profile baru anda"
-                      onChange={(event) => setNewFoto(event.target.files[0])}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
               <Form.Group className="mt-3">
                 <Form.Label>Nis</Form.Label>
                 <Form.Control
                   type="number"
                   defaultValue={nis}
-                  onChange={(event) => setNewNis(event.target.value)}
+                  name="nis"
+                  onChange={(event) => setNis(event.target.value)}
                 />
               </Form.Group>
               <Form.Group>
@@ -103,7 +99,8 @@ const ProfileSettings = ({ user_id }) => {
                 <Form.Control
                   type="text"
                   defaultValue={nama}
-                  onChange={(event) => setNewNama(event.target.value)}
+                  name="nama"
+                  onChange={(event) => setNama(event.target.value)}
                 />
               </Form.Group>
               <Form.Group>
@@ -112,7 +109,8 @@ const ProfileSettings = ({ user_id }) => {
                   name="kelas"
                   id="kelas"
                   className="form-control"
-                  onChange={(event) => setNewKelas(event.target.value)}
+                  value={kelas}
+                  onChange={(event) => setKelas(event.target.value)}
                 >
                   {getKelas.map((values, index) => {
                     return (
@@ -127,8 +125,9 @@ const ProfileSettings = ({ user_id }) => {
                 <label for="jurusan">Choose a Major</label>
                 <select
                   name="jurusan"
+                  defaultValue={jurusan}
                   className="form-control"
-                  onChange={(event) => setNewJurusan(event.target.value)}
+                  onChange={(event) => setJurusan(event.target.value)}
                 >
                   <option value="Rekayasa Perangkat Lunak">
                     Rekayasa Perangkat Lunak
@@ -145,14 +144,23 @@ const ProfileSettings = ({ user_id }) => {
                 <label for="jenis_kelamin">Choose Gender</label>
                 <select
                   name="jenis_kelamin"
+                  defaultValue={jenisKelamin}
                   className="form-control"
-                  onChange={(event) => setNewJenisKelamin(event.target.value)}
+                  onChange={(event) => setJenisKelamin(event.target.value)}
                 >
                   <option value="Laki - Laki">Male</option>
                   <option value="Perempuam">Female</option>
                 </select>
               </Form.Group>
-              <Button variant="outline-success"> Update Profile </Button>
+              <Button
+                variant="outline-success"
+                onClick={() => {
+                  updateProfile();
+                }}
+              >
+                {" "}
+                Update Profile{" "}
+              </Button>
             </Form>
           </Card.Body>
         </Card>
@@ -171,7 +179,7 @@ const ProfileSettings = ({ user_id }) => {
                   We'll never share your password with anyone else.
                 </Form.Text>
               </Form.Group>
-              <Button variant="danger" type="submit" onSubmit={updateProfile()}>
+              <Button variant="danger" onClick={() => changePassword()}>
                 Change Password
               </Button>
             </Form>
