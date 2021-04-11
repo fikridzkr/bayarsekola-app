@@ -19,7 +19,7 @@ function Students({ user, user_id }) {
         setActiveUser(res.data.response[0].is_active);
       })
       .catch((err) => console.log(err));
-  }, [user]);
+  });
   return (
     <Router>
       {activeUser === "yes" && <Navigation user={user} />}

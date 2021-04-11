@@ -11,7 +11,6 @@ const Dashboard = () => {
   const [checkLogin, setCheckLogin] = useState();
   const [username, setUsername] = useState();
   const [user_id, setUser_id] = useState();
-  const [activeUser, setActiveUser] = useState();
   Axios.defaults.withCredentials = true;
 
   useEffect(() => {
@@ -21,7 +20,6 @@ const Dashboard = () => {
         setCheckLogin(response.data.loggedIn);
         setUsername(response.data.user[0].username);
         setUser_id(response.data.user[0].id);
-        setActiveUser(response.data.user[0].is_active);
       } else {
         history.push("/");
       }

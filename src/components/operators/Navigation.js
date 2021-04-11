@@ -10,19 +10,19 @@ const Navigation = ({ user }) => {
         <Nav className="mr-auto">
           <Nav.Link href="/dashboard">Home</Nav.Link>
           <Link to="/dashboard/payment">
-            <Nav.Link href="/dashboard/payment">Data Pembayaran</Nav.Link>
+            <Nav.Link href="/dashboard/payment">Rekap Data Pembayaran</Nav.Link>
           </Link>
-          {/* <NavDropdown title="Data Pembayaran" id="basic-nav-dropdown">
+          <NavDropdown title="Data Pembayaran" id="basic-nav-dropdown">
             <NavDropdown.Item href="/dashboard/payment">
-              Cek Pembayaran Siswa
+              Data Pembayaran Masuk
             </NavDropdown.Item>
             <NavDropdown.Item href="/dashboard/operators">
-              Laporan Pembayaran Siswa
+              Data yang Sudah Bayar
             </NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">
-              History Pembayaran Siswa
+              Data yang Belum Bayar
             </NavDropdown.Item>
-          </NavDropdown> */}
+          </NavDropdown>
           <NavDropdown title={`Hai ${user}`} id="basic-nav-dropdown">
             <Link to="/dashboard/profile">
               <NavDropdown.Item href="/dashboard/profile">

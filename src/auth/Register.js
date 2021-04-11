@@ -50,20 +50,13 @@ const Register = () => {
       validationSchema={validate}
       onSubmit={(values) => {
         Axios.post("http://localhost:3001/register", {
-          username: values.username,
-          email: values.email,
+          username: values.username.toLowerCase(),
+          email: values.email.toLowerCase(),
           password: values.password,
           level: values.level,
           is_active: values.is_active,
         })
-          .then((res) => {
-            if (res) {
-              handleSubmit();
-              console.log(res);
-            } else {
-              console.log(res);
-            }
-          })
+          .then(handleSubmit())
           .catch((err) => {
             console.log(err);
           });
@@ -109,12 +102,7 @@ const Register = () => {
                         placeholder="Confirm Password"
                         name="confirmPassword"
                       />
-                      <Button
-                        variant="success"
-                        type="submit"
-                        className="mt-2"
-                        onClick={() => handleSubmit()}
-                      >
+                      <Button variant="success" type="submit" className="mt-2">
                         Sign up
                       </Button>
                     </Form>

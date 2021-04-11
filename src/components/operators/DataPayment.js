@@ -6,9 +6,9 @@ const DataPayment = () => {
   return (
     <>
       <Container className="mt-3">
-        <h1>Data Payment</h1>
+        <h2>Data Pembayaran yang Masuk</h2>
         <hr />
-        <h3>Cek Status Pembayaran Siswa</h3>
+        <h5>Cek Status Pembayaran Siswa</h5>
         <Table striped bordered hover responsive>
           <thead className="bg-success text-white">
             <tr>
