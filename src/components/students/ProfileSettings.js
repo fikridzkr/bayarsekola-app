@@ -11,11 +11,10 @@ const ProfileSettings = ({ user_id }) => {
   const [kelas, setKelas] = useState();
   const [jurusan, setJurusan] = useState();
   const [jenisKelamin, setJenisKelamin] = useState();
-
-  console.log(idUser, nis, nama, kelas, jurusan, jenisKelamin);
+  const [newPassword, setNewPassword] = useState();
   const [getKelas, setGetKelas] = useState([]);
   let history = useHistory();
-
+  console.log(newPassword);
   const getDataStudent = () => {
     Axios.post("http://localhost:3001/student", {
       user_id: idUser,
@@ -61,8 +60,8 @@ const ProfileSettings = ({ user_id }) => {
   // redirect pages
   function handleSubmit() {
     swal({
-      title: "Registration is successful",
-      text: "You will be directed to the login page!",
+      title: "Your Data is Update",
+      text: "You will be directed to the dashboard!",
       icon: "success",
       button: "Okay",
     }).then(() => {
@@ -70,7 +69,16 @@ const ProfileSettings = ({ user_id }) => {
     });
   }
 
-  const changePassword = () => {};
+  const changePassword = () => {
+    Axios.put("http://localhost:3001/student/changepassword", {
+      user_id: idUser,
+      newPassword: newPassword,
+    })
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
     getDataStudent();
     getDataKelas();
@@ -174,6 +182,7 @@ const ProfileSettings = ({ user_id }) => {
                   type="password"
                   placeholder="Enter new password"
                   className="col-md-6"
+                  onChange={(event) => setNewPassword(event.target.value)}
                 />
                 <Form.Text className="text-muted">
                   We'll never share your password with anyone else.
