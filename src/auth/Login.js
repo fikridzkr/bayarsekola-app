@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 const Login = () => {
   let history = useHistory();
   const [loginStatus, setLoginStatus] = useState("");
+  const [message, setMessage] = useState("");
   Axios.defaults.withCredentials = true;
   // validation here
   const validate = Yup.object({
@@ -48,7 +49,7 @@ const Login = () => {
         })
           .then((response) => {
             if (response.data.message) {
-              setLoginStatus(response.data.message);
+              setMessage(response.data.message);
             } else {
               setLoginStatus(response.data[0].username);
               handleLogin();
@@ -74,9 +75,9 @@ const Login = () => {
                     <p className="text-secondary text-center">
                       sign in to start paying school tuition online
                     </p>
-                    {loginStatus && (
+                    {message && (
                       <Alert variant="danger" className="font-small">
-                        {loginStatus}
+                        {message}
                       </Alert>
                     )}
                     <Form>
