@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [checkLogin, setCheckLogin] = useState();
   const [username, setUsername] = useState();
   const [user_id, setUser_id] = useState();
+  const [userStatus, setUserStatus] = useState();
   Axios.defaults.withCredentials = true;
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const Dashboard = () => {
         setCheckLogin(response.data.loggedIn);
         setUsername(response.data.user[0].username);
         setUser_id(response.data.user[0].id);
+        setUserStatus(response.data);
       } else {
         history.push("/");
       }
@@ -31,7 +33,9 @@ const Dashboard = () => {
     <>
       {role === "admin" && <Admin user={username} />}
       {role === "operators" && <Operators user={username} />}
-      {role === "students" && <Students user={username} user_id={user_id} />}
+      {role === "students" && (
+        <Students user={username} user_id={user_id} userStatus={userStatus} />
+      )}
     </>
   );
 };

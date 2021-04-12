@@ -8,7 +8,7 @@ import DataUser from "../components/students/DataUser";
 import ProfileSettings from "../components/students/ProfileSettings";
 import Bills from "../components/students/Bills";
 import Payment from "../components/students/Payment";
-function Students({ user, user_id }) {
+function Students({ user, user_id, userStatus }) {
   const [activeUser, setActiveUser] = useState();
   useEffect(() => {
     Axios.post("http://localhost:3001/studentstatus", {
@@ -22,7 +22,9 @@ function Students({ user, user_id }) {
   });
   return (
     <Router>
-      {activeUser === "yes" && <Navigation user={user} />}
+      {activeUser === "yes" && (
+        <Navigation user={user} userStatus={userStatus} />
+      )}
       <Switch>
         <Route
           path="/dashboard"

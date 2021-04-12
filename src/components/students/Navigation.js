@@ -32,7 +32,6 @@ const Navigation = ({ user }) => {
               <Dropdown.Toggle variant="outline-success" id="dropdown-basic">
                 {`Hai ${user}`}
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
                 <Link to="/dashboard/profile">
                   <Dropdown.Item href="/dashboard/profile">

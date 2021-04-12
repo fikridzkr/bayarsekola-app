@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-const ShowModal = () => {
+const ShowModal = (...rest) => {
   const [show, setShow] = useState(false);
-
+  console.log(rest);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
     <>
-      <Button variant="warning" size="sm" onClick={handleShow}>
-        Edit
+      <Button
+        variant="outline-success"
+        onClick={handleShow}
+        className={rest[0].className}
+      >
+        {rest[0].name}
       </Button>
 
       <Modal show={show} onHide={handleClose}>
