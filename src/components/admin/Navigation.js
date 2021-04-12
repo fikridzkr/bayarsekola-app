@@ -8,7 +8,10 @@ const Navigation = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/dashboard">Home</Nav.Link>
+          <Link to="/dashboard">
+            <Nav.Link href="/dashboard">Home</Nav.Link>
+          </Link>
+
           <NavDropdown title="Data Users" id="basic-nav-dropdown">
             <Link to="/dashboard/students">
               <NavDropdown.Item href="/dashboard/students">

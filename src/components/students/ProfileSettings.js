@@ -70,7 +70,7 @@ const ProfileSettings = ({ user_id }) => {
   }
 
   const changePassword = () => {
-    Axios.put("http://localhost:3001/student/changepassword", {
+    Axios.put("http://localhost:3001/changepassword", {
       user_id: idUser,
       newPassword: newPassword,
     })

@@ -7,7 +7,7 @@ import DataPayment from "../components/admin/DataPayment";
 import DataOperators from "../components/admin/DataOperators";
 import ProfileSettings from "../components/admin/ProfileSettings";
 import Home from "../components/admin/Home";
-function Admin({ user }) {
+function Admin({ user, user_id }) {
   return (
     <Router>
       <Navigation />
@@ -17,7 +17,10 @@ function Admin({ user }) {
         <Route path="/dashboard/admin" component={DataAdmin} />
         <Route path="/dashboard/operators" component={DataOperators} />
         <Route path="/dashboard/payment" component={DataPayment} />
-        <Route path="/dashboard/profile" component={ProfileSettings} />
+        <Route
+          path="/dashboard/profile"
+          render={() => <ProfileSettings user_id={user_id} />}
+        />
       </Switch>
     </Router>
   );
