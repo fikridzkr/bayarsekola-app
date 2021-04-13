@@ -64,6 +64,7 @@ const Register = () => {
     >
       {(formik) => (
         <div>
+          {console.log(formik)}
           <Navs />
           <Container>
             <Row className="mt-5">
