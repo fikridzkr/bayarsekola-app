@@ -1,106 +1,21 @@
-import Axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Container, Card, Button, Row, Col } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
-const Payment = () => {
-  const [bulan, setBulan] = useState([]);
-  let history = useHistory();
+import React, { useState } from "react";
+import ConfirmPayment from "./Checkout/ConfirmPayment";
+import FinishPayment from "./Checkout/FinishPayment";
+import SelectPayment from "./Checkout/SelectPayment";
 
-  // redirect pages
-  function handleClick() {
-    swal({
-      title: "Register your personal data is complete",
-      text: "You will be directed to dashboard!",
-      icon: "success",
-      button: "Okay",
-    }).then(() => {
-      history.push("/dashboard");
-    });
-  }
-  useEffect(() => {
-    Axios.get("http://localhost:3001/bulan")
-      .then((res) => {
-        setBulan(res.data.bulan);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+const Payment = ({ user_id }) => {
+  const [formStep, setFormStep] = useState(0);
+  const completeFormStep = () => {
+    setFormStep((cur) => cur + 1);
+  };
   return (
-    <Formik
-      initialValues={{
-        bulan: null,
-        bukti: null,
-      }}
-      onSubmit={(values) => {
-        let data = new FormData();
-        data.append("is_active", values.is_active);
-        data.append("user_id", values.user_id);
-
-        Axios.post("http://localhost:3001/sppsiswa", data)
-          .then((res) => {
-            console.log(res);
-            handleClick();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }}
-    >
-      {(formik) => (
-        <>
-          <Container className="mt-5">
-            <Row className="d-flex justify-content-center">
-              <Col md={6} sm={12}>
-                <Card className="mx-auto">
-                  <Card.Body>
-                    <h3>Bayar SPP</h3>
-                    <hr />
-                    <Form>
-                      <div className="mb-3">
-                        <label for="bulan">Choose a Month</label>
-                        <Field
-                          as="select"
-                          name="bulan"
-                          className="form-control"
-                        >
-                          {bulan.map((values, index) => {
-                            return (
-                              <option value={values.id} key={index}>
-                                {values.bulan} {values.tahun}
-                              </option>
-                            );
-                          })}
-                        </Field>
-                      </div>
-                      <div>
-                        <label for="bukti">Upload Bukti Pembayaran</label>
-                        <br />
-                        <input
-                          type="file"
-                          name="bukti"
-                          onChange={(event) =>
-                            formik.setFieldValue("foto", event.target.files[0])
-                          }
-                        />
-                      </div>
-                      <br />
-                      <Button variant="outline-success" className="mt-3">
-                        {" "}
-                        Bayar{" "}
-                      </Button>
-                    </Form>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
-        </>
+    <>
+      {formStep === 0 && (
+        <SelectPayment user_id={user_id} completeFormStep={completeFormStep} />
       )}
-    </Formik>
+      {formStep === 1 && <ConfirmPayment />}
+      {formStep === 2 && <FinishPayment />}
+    </>
   );
 };
 

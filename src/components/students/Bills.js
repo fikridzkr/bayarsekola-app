@@ -54,11 +54,7 @@ const Bills = ({ user_id }) => {
                   </td>
                   <td>
                     {values.tanggal_bayar === null ? (
-                      <Link to="/dashboard/payment">
-                        <Button variant="primary" size="sm">
-                          Bayar
-                        </Button>
-                      </Link>
+                      " - "
                     ) : (
                       <Button variant="success" size="sm">
                         Cetak Bukti
