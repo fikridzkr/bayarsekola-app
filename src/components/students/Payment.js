@@ -19,9 +19,8 @@ const Payment = ({ user_id }) => {
     bulan: Yup.string().required("Pilih Bulan Pembayaran"),
     bukti: Yup.mixed().required("Bukti Wajib Diupload"),
   });
-
   useEffect(() => {
-    Axios.get("http://localhost:3001/bulan")
+    Axios.post("http://localhost:3001/bulan", { user_id: user_id })
       .then((res) => {
         setBulan(res.data.bulan);
         console.log(res);
@@ -35,13 +34,14 @@ const Payment = ({ user_id }) => {
       {formStep === 0 && (
         <Formik
           initialValues={{
-            bulan: "1",
+            bulan: 0,
             bukti: null,
           }}
           validationSchema={validate}
           onSubmit={async (values) => {
             setBulanBayar(values.bulan);
             setBukti(values.bukti);
+
             await completeFormStep();
           }}
         >
@@ -62,9 +62,12 @@ const Payment = ({ user_id }) => {
                               name="bulan"
                               className="form-control"
                             >
+                              <option value="">
+                                -- Please Select Month --
+                              </option>
                               {bulan.map((values, index) => {
                                 return (
-                                  <option value={values.id} key={index}>
+                                  <option value={values.bulan_id} key={index}>
                                     {values.bulan} {values.tahun}
                                   </option>
                                 );

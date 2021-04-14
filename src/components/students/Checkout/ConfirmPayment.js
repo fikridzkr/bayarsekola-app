@@ -14,7 +14,9 @@ const ConfirmPayment = ({ ...props }) => {
     data.append("bulan", props.bulanBayar);
     data.append("bukti", props.bukti);
     Axios.put("http://localhost:3001/sppsiswa", data)
-      .then(props.completeFormStep())
+      .then(() => {
+        props.completeFormStep();
+      })
       .catch((err) => {
         console.log(err);
       });
