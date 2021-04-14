@@ -1,8 +1,9 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container, Table, Badge, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
+import ModalImage from "react-modal-image";
+import moment from "moment";
+import numberWithCommas from "../../utils/NumberWithCommas";
 const Bills = ({ user_id }) => {
   const [dataSppSiswa, setDataSppSiswa] = useState([]);
   useEffect(() => {
@@ -15,6 +16,8 @@ const Bills = ({ user_id }) => {
         console.log(err);
       });
   }, []);
+  console.log(dataSppSiswa);
+
   return (
     <div>
       <Container className="mt-5">
@@ -36,11 +39,28 @@ const Bills = ({ user_id }) => {
             {dataSppSiswa.map((values, index) => {
               return (
                 <tr>
+                  {console.log(typeof values.tanggal_bayar)}
                   <td>{index + 1}</td>
                   <td>{values.bulan}</td>
-                  <td>{values.tanggal_bayar ? values.tanggal_bayar : `-`}</td>
-                  <td>{values.jumlah}</td>
-                  <td>{values.bukti_pembayaran}</td>
+                  <td>
+                    {values.tanggal_bayar
+                      ? moment(values.tanggal_bayar).format("LL")
+                      : `-`}
+                  </td>
+                  <td>Rp. {numberWithCommas(values.jumlah)}</td>
+                  <td>
+                    {values.bukti_pembayaran ? (
+                      <div style={{ width: "50px" }}>
+                        <ModalImage
+                          small={`/cache/${values.bukti_pembayaran}`}
+                          large={`/cache/${values.bukti_pembayaran}`}
+                          alt={`Bukti Pembayaran bulan ${values.bulan}`}
+                        />
+                      </div>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
                   <td>
                     {values.keterangan === "Sudah Bayar" && (
                       <Badge variant="success">{values.keterangan}</Badge>
@@ -53,7 +73,8 @@ const Bills = ({ user_id }) => {
                     )}
                   </td>
                   <td>
-                    {values.tanggal_bayar === null ? (
+                    {values.keterangan === "Belum Bayar" ||
+                    values.keterangan === "Sedang Diproses" ? (
                       " - "
                     ) : (
                       <Button variant="success" size="sm">
