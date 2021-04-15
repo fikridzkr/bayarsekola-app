@@ -23,7 +23,7 @@ const DataUser = ({ user_id }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [user_id]);
 
   return (
     <>

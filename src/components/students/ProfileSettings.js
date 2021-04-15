@@ -14,7 +14,6 @@ const ProfileSettings = ({ user_id }) => {
   const [newPassword, setNewPassword] = useState();
   const [getKelas, setGetKelas] = useState([]);
   let history = useHistory();
-  console.log(newPassword);
   const getDataStudent = () => {
     Axios.post("http://localhost:3001/student", {
       user_id: idUser,
@@ -82,7 +81,7 @@ const ProfileSettings = ({ user_id }) => {
   useEffect(() => {
     getDataStudent();
     getDataKelas();
-  }, []);
+  }, [getDataStudent()]);
   return (
     <Container>
       <Container className="mt-3">

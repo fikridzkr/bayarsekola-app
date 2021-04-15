@@ -35,3 +35,7 @@ html {
 .font-small {
   font-size: 0.8rem;
 }
+
+@media print {
+  @page { size: landscape; }
+}
