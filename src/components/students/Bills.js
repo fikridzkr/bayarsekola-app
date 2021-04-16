@@ -12,9 +12,7 @@ const Bills = ({ user_id }) => {
   const handlePrint = () => {
     setPrintSubmitted(true);
   };
-  const print = () => {
-    Axios.post("htpp://localhost:3001/print");
-  };
+
   useEffect(() => {
     Axios.post("http://localhost:3001/bills/user", { user_id: user_id })
       .then((res) => {
