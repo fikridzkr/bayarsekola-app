@@ -16,7 +16,6 @@ function Admin({ user, user_id }) {
         <Route path="/dashboard/students" component={DataStudents} />
         <Route path="/dashboard/admin" component={DataAdmin} />
         <Route path="/dashboard/operators" component={DataOperators} />
-        <Route path="/dashboard/payment" component={DataPayment} />
         <Route
           path="/dashboard/profile"
           render={() => <ProfileSettings user_id={user_id} />}

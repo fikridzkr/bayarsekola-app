@@ -11,7 +11,6 @@ const Navigation = () => {
           <Link to="/dashboard">
             <Nav.Link href="/dashboard">Home</Nav.Link>
           </Link>
-
           <NavDropdown title="Data Users" id="basic-nav-dropdown">
             <Link to="/dashboard/students">
               <NavDropdown.Item href="/dashboard/students">
@@ -29,20 +28,6 @@ const Navigation = () => {
               </NavDropdown.Item>
             </Link>
           </NavDropdown>
-          <Link to="/dashboard/payment">
-            <Nav.Link href="/dashboard/payment">Data Pembayaran</Nav.Link>
-          </Link>
-          {/* <NavDropdown title="Data Pembayaran" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/dashboard/payment">
-              Cek Pembayaran Siswa
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/dashboard/operators">
-              Laporan Pembayaran Siswa
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">
-              History Pembayaran Siswa
-            </NavDropdown.Item>
-          </NavDropdown> */}
           <NavDropdown title="Hai Admin" id="basic-nav-dropdown">
             <Link to="/dashboard/profile">
               <NavDropdown.Item href="/dashboard/profile">
