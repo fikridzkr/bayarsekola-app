@@ -71,7 +71,6 @@ const Home = ({ user }) => {
             </Form>
           </Col>
         </Row>
-        {dataSiswa === undefined && <h1>Error</h1>}
         {dataSiswa ? (
           <div>
             <Card className="mt-5">
@@ -145,10 +144,9 @@ const Home = ({ user }) => {
                 })}
               </tbody>
             </Table>
-            {dataSiswa === [] && <h1>Error</h1>}
           </div>
         ) : (
-          <h1>error</h1>
+          ""
         )}
       </Container>
     </div>
