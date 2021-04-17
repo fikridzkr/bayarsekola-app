@@ -1,7 +1,9 @@
-import React from "react";
-import { Container, Table, Pagination } from "react-bootstrap";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Container, Table, Pagination, Form, Button } from "react-bootstrap";
 
 const DataStudents = () => {
+  const [dataSiswa, setDataSiswa] = useState();
   const pagination = () => {
     let active = 1;
     let items = [];
@@ -15,10 +17,34 @@ const DataStudents = () => {
 
     return items;
   };
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/operators/datasiswa")
+      .then((res) => {
+        console.log(res.data.siswa);
+        setDataSiswa(res.data.siswa);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <Container className="mt-5">
       <h2>Data Siswa</h2>
       <hr />
+      <Form className="form-inline my-4 justify-content-end">
+        <Form.Group>
+          <Form.Control
+            size="sm"
+            type="search"
+            placeholder="Search"
+            className="mr-3"
+          />
+          <Button variant="outline-success" size="sm" type="submit">
+            Search
+          </Button>
+        </Form.Group>
+      </Form>
       <Table bordered hover responsive>
         <thead className="bg-success text-white">
           <tr>
@@ -27,21 +53,23 @@ const DataStudents = () => {
             <th>Nama</th>
             <th>Kelas</th>
             <th>Jurusan</th>
-            <th>Pembayaran Terakhir</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>1223455</td>
-            <td>Fikri Dzakir</td>
-            <td>12 RPL 1</td>
-            <td>RPL</td>
-            <td>JULI</td>
-          </tr>
+          {dataSiswa.map((values, index) => {
+            return (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{values.nis}</td>
+                <td>{values.nama}</td>
+                <td>{values.kelas}</td>
+                <td>{values.jurusan}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
-      <Pagination className="justify-content-center">
+      <Pagination className="justify-content-center" variant="success">
         <Pagination.First />
         {pagination()}
         <Pagination.Last />
