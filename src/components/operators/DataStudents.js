@@ -5,12 +5,23 @@ import { Container, Table, Pagination, Form, Button } from "react-bootstrap";
 const DataStudents = () => {
   const [dataSiswa, setDataSiswa] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
   const pagination = () => {
     let active = 1;
     let items = [];
-    for (let number = 1; number <= 3; number++) {
+    for (
+      let number = 1;
+      number <= Math.ceil(dataSiswa.length / postsPerPage);
+      number++
+    ) {
       items.push(
-        <Pagination.Item key={number} active={number === active}>
+        <Pagination.Item
+          key={number}
+          active={number === active}
+          onClick={() => paginate(number)}
+        >
           {number}
         </Pagination.Item>
       );
@@ -19,16 +30,31 @@ const DataStudents = () => {
     return items;
   };
 
+  // Get Current post
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = dataSiswa.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (number) => setCurrentPage(number);
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
   useEffect(() => {
+    setLoading(true);
     Axios.get("http://localhost:3001/operators/datasiswa")
       .then((res) => {
         console.log(res.data.siswa);
         setDataSiswa(res.data.siswa);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
   return (
     <Container className="mt-5">
       <h2>Data Siswa</h2>
@@ -58,7 +84,7 @@ const DataStudents = () => {
           </tr>
         </thead>
         <tbody>
-          {dataSiswa
+          {currentPosts
             .filter((values) => {
               if (search === "") {
                 return values;
@@ -82,9 +108,9 @@ const DataStudents = () => {
         </tbody>
       </Table>
       <Pagination className="justify-content-center" variant="success">
-        <Pagination.First />
+        <Pagination.First onClick={() => prevPage()} />
         {pagination()}
-        <Pagination.Last />
+        <Pagination.Last onClick={() => nextPage()} />
       </Pagination>
     </Container>
   );
