@@ -11,10 +11,13 @@ const Navigation = ({ user }) => {
           <Link to="/dashboard">
             <Nav.Link href="/dashboard">Home</Nav.Link>
           </Link>
-          <Link to="/dashboard/payment">
-            <Nav.Link href="/dashboard/payment">Rekap Data Pembayaran</Nav.Link>
+          <Link to="/dashboard/students">
+            <Nav.Link href="/dashboard/students">Data Siswa</Nav.Link>
           </Link>
-          <NavDropdown title="Data Pembayaran" id="basic-nav-dropdown">
+          <Link to="/dashboard/payment">
+            <Nav.Link href="/dashboard/payment">Data Pembayaran Masuk</Nav.Link>
+          </Link>
+          {/* <NavDropdown title="Data Pembayaran" id="basic-nav-dropdown">
             <NavDropdown.Item href="/dashboard/payment">
               Data Pembayaran Masuk
             </NavDropdown.Item>
@@ -24,7 +27,7 @@ const Navigation = ({ user }) => {
             <NavDropdown.Item href="#action/3.3">
               Data yang Belum Bayar
             </NavDropdown.Item>
-          </NavDropdown>
+          </NavDropdown> */}
           <NavDropdown title={`Hai ${user}`} id="basic-nav-dropdown">
             <Link to="/dashboard/profile">
               <NavDropdown.Item href="/dashboard/profile">
