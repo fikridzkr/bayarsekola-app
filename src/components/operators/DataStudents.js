@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Container, Table, Pagination, Form, Button } from "react-bootstrap";
 
 const DataStudents = () => {
-  const [dataSiswa, setDataSiswa] = useState();
+  const [dataSiswa, setDataSiswa] = useState([]);
+  const [search, setSearch] = useState("");
   const pagination = () => {
     let active = 1;
     let items = [];
@@ -39,6 +40,7 @@ const DataStudents = () => {
             type="search"
             placeholder="Search"
             className="mr-3"
+            onChange={(event) => setSearch(event.target.value)}
           />
           <Button variant="outline-success" size="sm" type="submit">
             Search
@@ -56,17 +58,27 @@ const DataStudents = () => {
           </tr>
         </thead>
         <tbody>
-          {dataSiswa.map((values, index) => {
-            return (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{values.nis}</td>
-                <td>{values.nama}</td>
-                <td>{values.kelas}</td>
-                <td>{values.jurusan}</td>
-              </tr>
-            );
-          })}
+          {dataSiswa
+            .filter((values) => {
+              if (search === "") {
+                return values;
+              } else if (
+                values.nama.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return values;
+              }
+            })
+            .map((values, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{values.nis}</td>
+                  <td>{values.nama}</td>
+                  <td>{values.kelas}</td>
+                  <td>{values.jurusan}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </Table>
       <Pagination className="justify-content-center" variant="success">
