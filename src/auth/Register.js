@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import { TextField } from "../components/TextField";
 import * as Yup from "yup";
 import Axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
 const Register = () => {
@@ -64,7 +64,6 @@ const Register = () => {
     >
       {(formik) => (
         <div>
-          {console.log(formik)}
           <Navs />
           <Container>
             <Row className="mt-5">
@@ -111,7 +110,10 @@ const Register = () => {
                 </Card>
                 <Card className="text-center mt-4 shadow-sm">
                   <Card.Body>
-                    Have an account ? <a href="/login">Sign in</a>
+                    Have an account ?
+                    <Link to="/login">
+                      <a href="/login"> Sign In</a>
+                    </Link>
                   </Card.Body>
                 </Card>
               </Col>

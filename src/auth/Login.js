@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Card, Alert, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  Button,
+  Card,
+  Alert,
+  Row,
+  Col,
+  Spinner,
+} from "react-bootstrap";
 import Footer from "../components/Footer";
 import Navs from "../components/Navs";
 import { Formik, Form } from "formik";
 import { TextField } from "../components/TextField";
 import * as Yup from "yup";
 import Axios from "axios";
-import { useHistory } from "react-router-dom";
-
+import { Link, useHistory } from "react-router-dom";
 const Login = () => {
   let history = useHistory();
   const [loginStatus, setLoginStatus] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   Axios.defaults.withCredentials = true;
   // validation here
   const validate = Yup.object({
@@ -43,6 +51,7 @@ const Login = () => {
       }}
       validationSchema={validate}
       onSubmit={(values) => {
+        setLoading(true);
         Axios.post("http://localhost:3001/login", {
           username: values.username,
           password: values.password,
@@ -52,6 +61,7 @@ const Login = () => {
               setMessage(response.data.message);
             } else {
               setLoginStatus(response.data[0].username);
+              setLoading(false);
               handleLogin();
             }
           })
@@ -93,15 +103,36 @@ const Login = () => {
                         placeholder="Password"
                         name="password"
                       />
-                      <Button variant="success" type="submit" className="mt-2">
-                        Sign in
-                      </Button>
+                      {loading && (
+                        <Button variant="success" disabled>
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          Loading...
+                        </Button>
+                      )}
+                      {!loading && (
+                        <Button
+                          variant="success"
+                          type="submit"
+                          className="mt-2"
+                        >
+                          Sign in
+                        </Button>
+                      )}
                     </Form>
                   </Card.Body>
                 </Card>
                 <Card className="text-center mt-4 shadow-sm">
                   <Card.Body>
-                    Don't Have an account ? <a href="/register">Sign Up</a>
+                    Don't Have an account ?
+                    <Link to="/register">
+                      <a href="/register"> Sign Up</a>
+                    </Link>
                   </Card.Body>
                 </Card>
               </Col>

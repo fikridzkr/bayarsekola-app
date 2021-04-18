@@ -1,6 +1,13 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container, Table, Pagination, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Table,
+  Pagination,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 
 const DataStudents = () => {
   const [dataSiswa, setDataSiswa] = useState([]);
@@ -43,7 +50,6 @@ const DataStudents = () => {
     setLoading(true);
     Axios.get("http://localhost:3001/operators/datasiswa")
       .then((res) => {
-        console.log(res.data.siswa);
         setDataSiswa(res.data.siswa);
         setLoading(false);
       })
@@ -52,11 +58,15 @@ const DataStudents = () => {
       });
   }, []);
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
   return (
     <Container className="mt-5">
+      {loading && (
+        <Spinner
+          className="d-flex align-items-center"
+          animation="border"
+          variant="success"
+        />
+      )}
       <h2>Data Siswa</h2>
       <hr />
       <Form className="form-inline my-4 justify-content-end">
