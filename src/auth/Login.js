@@ -59,6 +59,7 @@ const Login = () => {
           .then((response) => {
             if (response.data.message) {
               setMessage(response.data.message);
+              setLoading(false);
             } else {
               setLoginStatus(response.data[0].username);
               setLoading(false);

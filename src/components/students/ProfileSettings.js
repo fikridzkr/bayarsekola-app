@@ -81,7 +81,7 @@ const ProfileSettings = ({ user_id }) => {
   useEffect(() => {
     getDataStudent();
     getDataKelas();
-  }, [getDataStudent()]);
+  }, []);
   return (
     <Container>
       <Container className="mt-3">
@@ -132,7 +132,7 @@ const ProfileSettings = ({ user_id }) => {
                 <label for="jurusan">Choose a Major</label>
                 <select
                   name="jurusan"
-                  defaultValue={jurusan}
+                  value={jurusan}
                   className="form-control"
                   onChange={(event) => setJurusan(event.target.value)}
                 >
@@ -151,7 +151,7 @@ const ProfileSettings = ({ user_id }) => {
                 <label for="jenis_kelamin">Choose Gender</label>
                 <select
                   name="jenis_kelamin"
-                  defaultValue={jenisKelamin}
+                  value={jenisKelamin}
                   className="form-control"
                   onChange={(event) => setJenisKelamin(event.target.value)}
                 >
