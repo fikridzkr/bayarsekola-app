@@ -2,25 +2,63 @@ import Axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Table, Badge } from "react-bootstrap";
+import { Table, Button, Spinner } from "react-bootstrap";
 import numberWithCommas from "../../utils/NumberWithCommas";
 import ModalImage from "react-modal-image";
 const DataPayment = () => {
   const [sppSiswa, setSppSiswa] = useState([]);
-  useEffect(() => {
-    Axios.get("http://localhost:3001/operators/sppsiswa")
+  const [loading, setLoading] = useState(false);
+
+  const handleSuccess = (id, userId, bulanId) => {
+    Axios.put("http://localhost:3001/operators/receivepayment", {
+      userId: userId,
+      bulanId: bulanId,
+    })
       .then((res) => {
-        console.log(res.data.sppSiswa);
-        setSppSiswa(res.data.sppSiswa);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
+  const handleFailure = (id, userId, bulanId) => {
+    Axios.put("http://localhost:3001/operators/declinepayment", {
+      userId: userId,
+      bulanId: bulanId,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  const dataSppSiswa = () => {
+    Axios.get("http://localhost:3001/operators/sppsiswa")
+      .then((res) => {
+        setSppSiswa(res.data.sppSiswa);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    dataSppSiswa();
+  }, []);
   return (
     <>
       <Container className="mt-5">
+        {loading && (
+          <Spinner
+            className="d-flex align-items-center"
+            animation="border"
+            variant="success"
+          />
+        )}
         <h2>Data Pembayaran Masuk</h2>
         <hr />
         <Table bordered hover responsive>
@@ -60,10 +98,32 @@ const DataPayment = () => {
                     </div>
                   </td>
                   <td>
-                    <Badge variant="success">Terima Pembayaran</Badge>
-                    <br />
-                    <Badge variant="danger">Tolak Pembayaran</Badge>
-                    <Badge variant="primary">Sudah bayaran</Badge>
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() =>
+                        handleSuccess(
+                          values.id,
+                          values.user_id,
+                          values.bulan_id
+                        )
+                      }
+                    >
+                      Terima
+                    </Button>{" "}
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => {
+                        handleFailure(
+                          values.id,
+                          values.user_id,
+                          values.bulan_id
+                        );
+                      }}
+                    >
+                      Tolak
+                    </Button>
                   </td>
                 </tr>
               );
