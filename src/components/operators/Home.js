@@ -14,6 +14,8 @@ import {
 import ModalImage from "react-modal-image";
 import moment from "moment";
 import numberWithCommas from "../../utils/NumberWithCommas";
+import swal from "sweetalert";
+
 const Home = ({ user }) => {
   const [valueNis, setValueNis] = useState();
   const [userId, setUserId] = useState();
@@ -28,6 +30,15 @@ const Home = ({ user }) => {
         setUserId(res.data.dataSiswa[0].user_id);
       })
       .catch((err) => console.log(err));
+
+    if (!dataSiswa) {
+      return swal({
+        title: "Data Not Found",
+        text: "Make sure nis is correct!",
+        icon: "error",
+        button: "Okay",
+      });
+    }
   };
 
   useEffect(() => {

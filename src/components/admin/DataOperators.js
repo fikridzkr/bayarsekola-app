@@ -38,7 +38,7 @@ const DataOperators = () => {
     Axios.delete(`http://localhost:3001/operators/delete/${id}`).then((res) => {
       setDataOperators(
         dataOperators.filter((value) => {
-          return value.id != id;
+          return value.id !== id;
         })
       );
     });

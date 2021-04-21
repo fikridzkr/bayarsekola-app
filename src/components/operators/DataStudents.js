@@ -69,7 +69,7 @@ const DataStudents = () => {
       )}
       <h2>Data Siswa</h2>
       <hr />
-      <Form className="form-inline my-4 justify-content-end">
+      <Form className="form-inline my-3 justify-content-end">
         <Form.Group>
           <Form.Control
             size="sm"
@@ -78,7 +78,12 @@ const DataStudents = () => {
             className="mr-3"
             onChange={(event) => setSearch(event.target.value)}
           />
-          <Button variant="outline-success" size="sm" type="submit">
+          <Button
+            variant="outline-success"
+            size="sm"
+            type="submit"
+            className="float-right mt-3"
+          >
             Search
           </Button>
         </Form.Group>
@@ -91,6 +96,7 @@ const DataStudents = () => {
             <th>Nama</th>
             <th>Kelas</th>
             <th>Jurusan</th>
+            <th>Jenis Kelamin</th>
           </tr>
         </thead>
         <tbody>
@@ -112,6 +118,7 @@ const DataStudents = () => {
                   <td>{values.nama}</td>
                   <td>{values.kelas}</td>
                   <td>{values.jurusan}</td>
+                  <td>{values.jenis_kelamin}</td>
                 </tr>
               );
             })}

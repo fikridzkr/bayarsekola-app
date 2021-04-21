@@ -8,7 +8,6 @@ import swal from "sweetalert";
 
 const RegisterStudent = ({ user, user_id }) => {
   const [kelas, setKelas] = useState([]);
-  console.log(user_id);
   // validation here
   const validate = Yup.object({
     nis: Yup.number()
@@ -19,7 +18,7 @@ const RegisterStudent = ({ user, user_id }) => {
       .required("Name is required"),
   });
 
-  function getKelas() {
+  const getKelas = () => {
     Axios.get("http://localhost:3001/kelas")
       .then((res) => {
         const dataKelas = res.data.kelas;
@@ -29,7 +28,7 @@ const RegisterStudent = ({ user, user_id }) => {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   useEffect(() => {
     getKelas();

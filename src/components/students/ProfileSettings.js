@@ -50,14 +50,14 @@ const ProfileSettings = ({ user_id }) => {
       jurusan: jurusan,
       jenis_kelamin: jenisKelamin,
     })
-      .then(handleSubmit())
+      .then(handleUpdate())
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // redirect pages
-  function handleSubmit() {
+  // redirect update
+  function handleUpdate() {
     swal({
       title: "Your Data is Update",
       text: "You will be directed to the dashboard!",
@@ -67,13 +67,24 @@ const ProfileSettings = ({ user_id }) => {
       history.push("/dashboard");
     });
   }
+  // redirect change password
+  function handleChangePassword() {
+    swal({
+      title: "Your Password is Update",
+      text: "Please login again!",
+      icon: "success",
+      button: "Okay",
+    }).then(() => {
+      window.location.href = "/";
+    });
+  }
 
   const changePassword = () => {
     Axios.put("http://localhost:3001/changepassword", {
       user_id: idUser,
       newPassword: newPassword,
     })
-      .then((res) => console.log(res))
+      .then(handleChangePassword())
       .catch((err) => {
         console.log(err);
       });

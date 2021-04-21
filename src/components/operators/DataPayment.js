@@ -8,14 +8,17 @@ import ModalImage from "react-modal-image";
 const DataPayment = () => {
   const [sppSiswa, setSppSiswa] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const handleSuccess = (id, userId, bulanId) => {
     Axios.put("http://localhost:3001/operators/receivepayment", {
       userId: userId,
       bulanId: bulanId,
     })
       .then((res) => {
-        console.log(res);
+        setSppSiswa(
+          sppSiswa.filter((value) => {
+            return value.siswa_id !== id;
+          })
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -38,16 +41,17 @@ const DataPayment = () => {
     Axios.get("http://localhost:3001/operators/sppsiswa")
       .then((res) => {
         setSppSiswa(res.data.sppSiswa);
-        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  console.log(sppSiswa);
   useEffect(() => {
     setLoading(true);
     dataSppSiswa();
+    setLoading(false);
   }, []);
   return (
     <>
@@ -80,9 +84,9 @@ const DataPayment = () => {
               return (
                 <tr>
                   <td>{index + 1}</td>
-                  <td>dummy123</td>
-                  <td>Dummyy</td>
-                  <td>Dummy</td>
+                  <td>{values.nis}</td>
+                  <td>{values.nama}</td>
+                  <td>{values.kelas}</td>
                   <td>
                     {values.bulan} {values.tahun}
                   </td>
@@ -99,11 +103,12 @@ const DataPayment = () => {
                   </td>
                   <td>
                     <Button
+                      className="mb-2"
                       variant="success"
                       size="sm"
                       onClick={() =>
                         handleSuccess(
-                          values.id,
+                          values.siswa_id,
                           values.user_id,
                           values.bulan_id
                         )
@@ -130,6 +135,9 @@ const DataPayment = () => {
             })}
           </tbody>
         </Table>
+        {sppSiswa.length === 0 && (
+          <h5 className="text-center">Tidak ada pembayaran yang masuk</h5>
+        )}
       </Container>
     </>
   );
