@@ -43,6 +43,7 @@ const DataOperators = () => {
       );
     });
   };
+
   useEffect(() => {
     Axios.get("http://localhost:3001/admin/dataoperators")
       .then((res) => {

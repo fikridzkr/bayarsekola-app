@@ -1,36 +1,39 @@
 import Axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, NavItem } from "react-bootstrap";
 import { Table, Button, Spinner } from "react-bootstrap";
 import numberWithCommas from "../../utils/NumberWithCommas";
 import ModalImage from "react-modal-image";
 const DataPayment = () => {
   const [sppSiswa, setSppSiswa] = useState([]);
   const [loading, setLoading] = useState(false);
-  const handleSuccess = (id, userId, bulanId) => {
+  useEffect(() => {
+    setLoading(true);
+    dataSppSiswa();
+  }, [sppSiswa]);
+
+  function handleSuccess(id, userId, bulanId) {
     Axios.put("http://localhost:3001/operators/receivepayment", {
       userId: userId,
       bulanId: bulanId,
-    })
-      .then((res) => {
-        setSppSiswa(
-          sppSiswa.filter((value) => {
-            return value.siswa_id !== id;
-          })
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const handleFailure = (id, userId, bulanId) => {
+    }).then(() => {
+      // let list = sppSiswa.filter((item) => item.id !== id && item);
+      // setSppSiswa(list);
+      // dataSppSiswa();
+      setSppSiswa(sppSiswa);
+    });
+  }
+  const handleFailure = (siswaId, userId, bulanId) => {
     Axios.put("http://localhost:3001/operators/declinepayment", {
       userId: userId,
       bulanId: bulanId,
     })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        // let list = sppSiswa.filter((item) => item.siswa_id === siswaId);
+        // setSppSiswa(list);
+        // dataSppSiswa();
+        setSppSiswa(sppSiswa);
       })
       .catch((err) => {
         console.log(err);
@@ -41,6 +44,8 @@ const DataPayment = () => {
     Axios.get("http://localhost:3001/operators/sppsiswa")
       .then((res) => {
         setSppSiswa(res.data.sppSiswa);
+        setLoading(false);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -48,21 +53,16 @@ const DataPayment = () => {
   };
 
   console.log(sppSiswa);
-  useEffect(() => {
-    setLoading(true);
-    dataSppSiswa();
-    setLoading(false);
-  }, []);
   return (
     <>
       <Container className="mt-5">
-        {loading && (
+        {/* {loading && (
           <Spinner
             className="d-flex align-items-center"
             animation="border"
             variant="success"
           />
-        )}
+        )} */}
         <h2>Data Pembayaran Masuk</h2>
         <hr />
         <Table bordered hover responsive>
@@ -82,7 +82,7 @@ const DataPayment = () => {
           <tbody>
             {sppSiswa.map((values, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{values.nis}</td>
                   <td>{values.nama}</td>
@@ -108,7 +108,7 @@ const DataPayment = () => {
                       size="sm"
                       onClick={() =>
                         handleSuccess(
-                          values.siswa_id,
+                          values.id,
                           values.user_id,
                           values.bulan_id
                         )
