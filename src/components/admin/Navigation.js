@@ -1,6 +1,8 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Logout from "../../auth/Logout";
+
 const Navigation = () => {
   return (
     <Navbar bg="success" expand="lg" variant="dark">
@@ -35,7 +37,9 @@ const Navigation = () => {
               </NavDropdown.Item>
             </Link>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/">Logout</NavDropdown.Item>
+            <button className="dropdown-item" onClick={Logout}>
+              Logout
+            </button>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>

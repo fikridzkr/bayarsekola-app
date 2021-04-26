@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 const Dashboard = () => {
   let history = useHistory();
   const [role, setRole] = useState();
-  const [checkLogin, setCheckLogin] = useState();
   const [username, setUsername] = useState();
   const [user_id, setUser_id] = useState();
   Axios.defaults.withCredentials = true;
@@ -17,15 +16,14 @@ const Dashboard = () => {
     Axios.get("http://localhost:3001/login").then((response) => {
       if (response.data.loggedIn === true) {
         setRole(response.data.user[0].level);
-        setCheckLogin(response.data.loggedIn);
         setUsername(response.data.user[0].username);
         setUser_id(response.data.user[0].id);
+        console.log(response);
       } else {
         history.push("/");
       }
-      console.log(response);
     });
-  }, []);
+  }, [history]);
 
   return (
     <>

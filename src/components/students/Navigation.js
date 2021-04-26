@@ -1,6 +1,8 @@
 import React from "react";
 import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Logout from "../../auth/Logout";
+
 const Navigation = ({ user }) => {
   return (
     <>
@@ -38,7 +40,9 @@ const Navigation = ({ user }) => {
                     Profile Settings
                   </Dropdown.Item>
                 </Link>
-                <Dropdown.Item href="/">Logout</Dropdown.Item>
+                <button className="dropdown-item" onClick={Logout}>
+                  Logout
+                </button>
               </Dropdown.Menu>
             </Dropdown>
           </Navbar.Collapse>

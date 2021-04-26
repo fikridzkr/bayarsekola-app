@@ -44,7 +44,7 @@ const Home = ({ user }) => {
         <h2 className="mt-3">Selamat Datang {user}</h2>
         <hr />
         <Row className="mt-5">
-          <Col>
+          <Col className="mb-3">
             <Card bg="primary" text="white" style={{ width: "15rem" }}>
               <Card.Body>
                 <Card.Title> Total Admin </Card.Title>
@@ -52,7 +52,7 @@ const Home = ({ user }) => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          <Col className="mb-3">
             <Card bg="warning" text="white" style={{ width: "15rem" }}>
               <Card.Body>
                 <Card.Title> Total Operator </Card.Title>
@@ -60,7 +60,7 @@ const Home = ({ user }) => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          <Col className="mb-3">
             <Card bg="danger" text="white" style={{ width: "15rem" }}>
               <Card.Body>
                 <Card.Title> Total Siswa </Card.Title>
