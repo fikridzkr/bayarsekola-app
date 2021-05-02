@@ -21,6 +21,7 @@ const Home = ({ user }) => {
   const [userId, setUserId] = useState();
   const [dataSiswa, setDataSiswa] = useState();
   const [sppSiswa, setSppSiswa] = useState([]);
+
   const handleClick = () => {
     Axios.post("http://localhost:3001/searchnis/datasiswa", {
       valueNis: valueNis,
@@ -31,14 +32,14 @@ const Home = ({ user }) => {
       })
       .catch((err) => console.log(err));
 
-    if (!dataSiswa) {
-      return swal({
-        title: "Data Not Found",
-        text: "Make sure nis is correct!",
-        icon: "error",
-        button: "Okay",
-      });
-    }
+    // if (!dataSiswa) {
+    //   return swal({
+    //     title: "Data Not Found",
+    //     text: "Make sure nis is correct!",
+    //     icon: "error",
+    //     button: "Okay",
+    //   });
+    // }
   };
 
   useEffect(() => {

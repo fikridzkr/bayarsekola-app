@@ -167,7 +167,7 @@ const ProfileSettings = ({ user_id }) => {
                   onChange={(event) => setJenisKelamin(event.target.value)}
                 >
                   <option value="Laki - Laki">Male</option>
-                  <option value="Perempuam">Female</option>
+                  <option value="Perempuan">Female</option>
                 </select>
               </Form.Group>
               <Button

@@ -141,7 +141,7 @@ const RegisterStudent = ({ user, user_id }) => {
                           className="form-control"
                         >
                           <option value="Laki - Laki">Male</option>
-                          <option value="Perempuam">Female</option>
+                          <option value="Perempuan">Female</option>
                         </Field>
                       </div>
                       <Button variant="success" type="submit">

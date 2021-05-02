@@ -37,5 +37,11 @@ html {
 }
 
 @media print {
-  @page { size: landscape; }
+  @page {
+    size: landscape;
+  }
+}
+
+.font-large {
+  font-size: 5rem;
 }

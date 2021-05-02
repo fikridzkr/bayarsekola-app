@@ -82,7 +82,7 @@ const DataStudents = () => {
             variant="outline-success"
             size="sm"
             type="submit"
-            className="float-right mt-3"
+            className="float-right "
           >
             Search
           </Button>
