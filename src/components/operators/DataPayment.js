@@ -1,14 +1,13 @@
-import Axios from "axios";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import { Table, Button, Form, Pagination } from "react-bootstrap";
-import numberWithCommas from "../../utils/NumberWithCommas";
-import ModalImage from "react-modal-image";
+import Axios from 'axios';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
+import { Table, Button, Form, Pagination } from 'react-bootstrap';
+import numberWithCommas from '../../utils/NumberWithCommas';
+import ModalImage from 'react-modal-image';
 const DataPayment = () => {
   const [sppSiswa, setSppSiswa] = useState([]);
-  const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const pagination = () => {
@@ -26,18 +25,38 @@ const DataPayment = () => {
           onClick={() => paginate(number)}
         >
           {number}
-        </Pagination.Item>
+        </Pagination.Item>,
       );
     }
 
     return items;
   };
   useEffect(() => {
+    const CancelToken = Axios.CancelToken;
+    const source = CancelToken.source();
+    const dataSppSiswa = () => {
+      Axios.get('http://localhost:3001/operators/sppsiswa', {
+        cancelToken: source.token,
+      })
+        .then((res) => {
+          setSppSiswa(res.data.sppSiswa);
+        })
+        .catch((err) => {
+          if (Axios.isCancel(err)) {
+            //cancelled
+          } else {
+            throw err;
+          }
+        });
+    };
     dataSppSiswa();
+    return () => {
+      source.cancel();
+    };
   }, [sppSiswa]);
 
   function handleSuccess(id, userId, bulanId) {
-    Axios.put("http://localhost:3001/operators/receivepayment", {
+    Axios.put('http://localhost:3001/operators/receivepayment', {
       userId: userId,
       bulanId: bulanId,
     }).then(() => {
@@ -45,23 +64,12 @@ const DataPayment = () => {
     });
   }
   const handleFailure = (siswaId, userId, bulanId) => {
-    Axios.put("http://localhost:3001/operators/declinepayment", {
+    Axios.put('http://localhost:3001/operators/declinepayment', {
       userId: userId,
       bulanId: bulanId,
     })
       .then(() => {
         setSppSiswa(sppSiswa);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const dataSppSiswa = () => {
-    Axios.get("http://localhost:3001/operators/sppsiswa")
-      .then((res) => {
-        setSppSiswa(res.data.sppSiswa);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -118,7 +126,7 @@ const DataPayment = () => {
           <tbody>
             {currentPosts
               .filter((values) => {
-                if (search === "") {
+                if (search === '') {
                   return values;
                 } else if (
                   values.nama.toLowerCase().includes(search.toLowerCase())
@@ -136,10 +144,10 @@ const DataPayment = () => {
                     <td>
                       {values.bulan} {values.tahun}
                     </td>
-                    <td>{moment(values.tanggal_bayar).format("LL")}</td>
+                    <td>{moment(values.tanggal_bayar).format('LL')}</td>
                     <td>Rp. {numberWithCommas(values.jumlah)}</td>
                     <td>
-                      <div style={{ width: "50px" }}>
+                      <div style={{ width: '50px' }}>
                         <ModalImage
                           small={`/cache/${values.bukti_pembayaran}`}
                           large={`/cache/${values.bukti_pembayaran}`}
@@ -156,12 +164,12 @@ const DataPayment = () => {
                           handleSuccess(
                             values.id,
                             values.user_id,
-                            values.bulan_id
+                            values.bulan_id,
                           )
                         }
                       >
                         Terima
-                      </Button>{" "}
+                      </Button>{' '}
                       <Button
                         variant="danger"
                         size="sm"
@@ -169,7 +177,7 @@ const DataPayment = () => {
                           handleFailure(
                             values.id,
                             values.user_id,
-                            values.bulan_id
+                            values.bulan_id,
                           );
                         }}
                       >
