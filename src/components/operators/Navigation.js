@@ -19,6 +19,9 @@ const Navigation = ({ user }) => {
           <Link to="/dashboard/payment">
             <Nav.Link href="/dashboard/payment">Data Pembayaran Masuk</Nav.Link>
           </Link>
+          <Link to="/dashboard/report">
+            <Nav.Link href="/dashboard/report">Laporan</Nav.Link>
+          </Link>
           {/* <NavDropdown title="Data Pembayaran" id="basic-nav-dropdown">
             <NavDropdown.Item href="/dashboard/payment">
               Data Pembayaran Masuk

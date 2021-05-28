@@ -1,5 +1,5 @@
-import Axios from "axios";
-import React, { useEffect, useState } from "react";
+import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import {
   Col,
   Container,
@@ -10,11 +10,10 @@ import {
   Card,
   Badge,
   Table,
-} from "react-bootstrap";
-import ModalImage from "react-modal-image";
-import moment from "moment";
-import numberWithCommas from "../../utils/NumberWithCommas";
-import swal from "sweetalert";
+} from 'react-bootstrap';
+import ModalImage from 'react-modal-image';
+import moment from 'moment';
+import numberWithCommas from '../../utils/NumberWithCommas';
 
 const Home = ({ user }) => {
   const [valueNis, setValueNis] = useState();
@@ -23,7 +22,7 @@ const Home = ({ user }) => {
   const [sppSiswa, setSppSiswa] = useState([]);
 
   const handleClick = () => {
-    Axios.post("http://localhost:3001/searchnis/datasiswa", {
+    Axios.post('http://localhost:3001/searchnis/datasiswa', {
       valueNis: valueNis,
     })
       .then((res) => {
@@ -31,19 +30,10 @@ const Home = ({ user }) => {
         setUserId(res.data.dataSiswa[0].user_id);
       })
       .catch((err) => console.log(err));
-
-    // if (!dataSiswa) {
-    //   return swal({
-    //     title: "Data Not Found",
-    //     text: "Make sure nis is correct!",
-    //     icon: "error",
-    //     button: "Okay",
-    //   });
-    // }
   };
 
   useEffect(() => {
-    Axios.post("http://localhost:3001/searchnis/sppsiswa", {
+    Axios.post('http://localhost:3001/searchnis/sppsiswa', {
       userId: userId,
     })
       .then((res) => {
@@ -123,13 +113,13 @@ const Home = ({ user }) => {
                       </td>
                       <td>
                         {values.tanggal_bayar
-                          ? moment(values.tanggal_bayar).format("LL")
+                          ? moment(values.tanggal_bayar).format('LL')
                           : `-`}
                       </td>
                       <td>Rp. {numberWithCommas(values.jumlah)}</td>
                       <td>
                         {values.bukti_pembayaran ? (
-                          <div style={{ width: "50px" }}>
+                          <div style={{ width: '50px' }}>
                             <ModalImage
                               small={`/cache/${values.bukti_pembayaran}`}
                               large={`/cache/${values.bukti_pembayaran}`}
@@ -137,17 +127,17 @@ const Home = ({ user }) => {
                             />
                           </div>
                         ) : (
-                          "-"
+                          '-'
                         )}
                       </td>
                       <td>
-                        {values.keterangan === "Sudah Bayar" && (
+                        {values.keterangan === 'Sudah Bayar' && (
                           <Badge variant="success">{values.keterangan}</Badge>
                         )}
-                        {values.keterangan === "Sedang Diproses" && (
+                        {values.keterangan === 'Sedang Diproses' && (
                           <Badge variant="warning">{values.keterangan}</Badge>
                         )}
-                        {values.keterangan === "Belum Bayar" && (
+                        {values.keterangan === 'Belum Bayar' && (
                           <Badge variant="danger">{values.keterangan}</Badge>
                         )}
                       </td>
@@ -158,7 +148,7 @@ const Home = ({ user }) => {
             </Table>
           </div>
         ) : (
-          ""
+          ''
         )}
       </Container>
     </div>

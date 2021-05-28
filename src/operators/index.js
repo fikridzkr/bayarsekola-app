@@ -5,6 +5,7 @@ import Home from "../components/operators/Home";
 import DataPayment from "../components/operators/DataPayment";
 import ProfileSettings from "../components/operators/ProfileSettings";
 import DataStudents from "../components/operators/DataStudents";
+import Report from "../components/operators/Report";
 
 function Operators({ user, user_id }) {
   return (
@@ -18,6 +19,7 @@ function Operators({ user, user_id }) {
           path="/dashboard/profile"
           render={() => <ProfileSettings user_id={user_id} />}
         />
+        <Route path="/dashboard/report" component={Report} />
       </Switch>
     </Router>
   );

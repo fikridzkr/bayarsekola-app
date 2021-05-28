@@ -1,10 +1,10 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 const Logout = () => {
-  Axios.get("http://localhost:3001/logout")
+  Axios.get('http://localhost:3001/logout')
     .then((res) => {
       console.log(res);
-      window.location.href = "/dashboard";
+      window.location.href = '/';
     })
     .catch((err) => {
       console.log(err);
