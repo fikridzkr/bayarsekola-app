@@ -5,7 +5,9 @@ import TotalReport from './report/TotalReport';
 
 const Report = () => {
   const [currentView, setCurrentView] = useState(0);
-
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const enabled = startDate && endDate;
   return (
     <>
       {currentView === 0 && (
@@ -36,17 +38,26 @@ const Report = () => {
                 <td>
                   <Form.Group className="mb-3">
                     <Form.Label>Mulai Tanggal</Form.Label>
-                    <Form.Control type="date" size="sm" />
+                    <Form.Control
+                      type="date"
+                      size="sm"
+                      onChange={(event) => setStartDate(event.target.value)}
+                    />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Sampai Tanggal</Form.Label>
-                    <Form.Control type="date" size="sm" />
+                    <Form.Control
+                      type="date"
+                      size="sm"
+                      onChange={(event) => setEndDate(event.target.value)}
+                    />
                   </Form.Group>
                   <Button
                     size="sm"
                     variant="success"
-                    className="m-2"
+                    className="m-2 "
                     onClick={() => setCurrentView(2)}
+                    disabled={!enabled}
                   >
                     Cetak
                   </Button>
@@ -58,7 +69,9 @@ const Report = () => {
       )}
 
       {currentView === 1 && <ReportDaily />}
-      {currentView === 2 && <TotalReport />}
+      {currentView === 2 && (
+        <TotalReport startDate={startDate} endDate={endDate} />
+      )}
     </>
   );
 };
