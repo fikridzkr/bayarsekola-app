@@ -130,7 +130,7 @@ const TotalReport = ({ startDate, endDate }) => {
         <div>
           <Container className="mt-5 text-center">
             <h4>
-              Tidak Ada Pembayaran Pada Tanggal Tanggal :{' '}
+              Tidak Ada Pembayaran Pada Tanggal :{' '}
               {`${moment(startDate).format('DD-MM-YYYY')} s/d ${moment(
                 endDate,
               ).format('DD-MM-YYYY')}`}{' '}

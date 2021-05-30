@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Axios from "axios";
-import {
-  Container,
-  Table,
-  Pagination,
-  Form,
-  Button,
-  Spinner,
-} from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios';
+import { Table, Pagination, Form, Button, Spinner } from 'react-bootstrap';
 const DataStudents = () => {
   const [dataSiswa, setDataSiswa] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
@@ -30,7 +23,7 @@ const DataStudents = () => {
           onClick={() => paginate(number)}
         >
           {number}
-        </Pagination.Item>
+        </Pagination.Item>,
       );
     }
 
@@ -49,7 +42,7 @@ const DataStudents = () => {
 
   useEffect(() => {
     setLoading(true);
-    Axios.get("http://localhost:3001/admin/student")
+    Axios.get('http://localhost:3001/admin/student')
       .then((res) => {
         setDataSiswa(res.data.siswa);
         setLoading(false);
@@ -99,7 +92,7 @@ const DataStudents = () => {
         <tbody>
           {currentPosts
             .filter((values) => {
-              if (search === "") {
+              if (search === '') {
                 return values;
               } else if (
                 values.nama.toLowerCase().includes(search.toLowerCase())
